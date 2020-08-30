@@ -91,9 +91,6 @@
         </dependency>
     </dependencies>
 
-
-    </dependencies>
-
     <build>
         <finalName>CRUD_App_SpringMVC_Hibernate_Tomcat_WithoutXML</finalName>
         <pluginManagement>
