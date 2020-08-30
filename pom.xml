@@ -32,12 +32,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-core &ndash;&gt;
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>
@@ -71,6 +71,26 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.20</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.2.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.10.Final</version>
+        </dependency>
+    </dependencies>
+
 
     </dependencies>
 
