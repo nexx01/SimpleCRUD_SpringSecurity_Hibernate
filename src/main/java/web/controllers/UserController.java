@@ -1,11 +1,8 @@
 package web.controllers;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,108 +11,81 @@ import web.model.User;
 import web.service.UserService;
 
 import javax.validation.Valid;
+
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/users")
-
 public class UserController {
 
 
     UserService userService;
 
     @Autowired
-    public void setSingerService( UserService userService) {
+    public void setSingerService(UserService userService) {
         this.userService = userService;
     }
 
-    @RequestMapping(method= RequestMethod.GET)
-    public String list(ModelMap model){
-        List<User> users=userService.getAllUsers();
-        model.addAttribute("users",users);
+
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String list(ModelMap model) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
         return "users/list";
     }
 
-/*   @RequestMapping(value = "{/id}",method=RequestMethod.GET)
-    public String show (@PathVariable("id") Long id,ModelMap model){
-        User user=userService.findUserbyId(id);
-        model.addAttribute("user",user);
-        return "users/show";
-   }*/
 
-/*    @RequestMapping(value = "/delete?id={id}",method=RequestMethod.GET)
-    public String deleteCustomerForm(@PathVariable("id") Long id,ModelMap model) {
-        User user = userService.findUserbyId(id);
-        if(user==null){
-           *//* "User with id"+id+"is not exist";*//*
-        }
-        userService.delete(user);
-        return "/users/list";
-    }*/
-
-/*   @RequestMapping(value = "/{id}",method=RequestMethod.GET)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-       User user= userService.findUserbyId(id);
-        userService.delete(user);
-    }*/
 
     @RequestMapping("/delete")
     public String deleteCustomerForm(@RequestParam long id) {
-        User user= userService.findUserbyId(id);
+        User user = userService.findUserbyId(id);
         userService.delete(user);
         return "redirect:/users";
     }
 
-/*    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@RequestParam long id, Model model){
-        User user= userService.findUserbyId(id);
-        model.addAttribute("user",user);
-        return "redirect:/users";
-}*/
-
-/*    @RequestMapping("/newUser")
-    public String newCustomerForm(ModelMap model) {
-        User user = new User();
-        model.put("user", user);
-        return "users/newUser";
-    }*/
-/*
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveCustomer(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
-        return "redirect:/users";
-    }*/
-
-
+    // Получение и проверка данных введеных в форму
     @GetMapping("/addUser")
     public String addUserView(Model model) {
-        model.addAttribute("newUser", new User());
+        model.addAttribute("user", new User());
         return "users/addUser";
     }
 
+    // Получение и проверка данных введеных в форму
     @PostMapping("/addUser")
-    public String addUserSubmint(@ModelAttribute @Valid User user,BindingResult bindingResult, Model model) {
-        userService.saveUser(user);
-        model.addAttribute("newUser", user);
-        return "redirect:/users";
+    public String addUserSubmint(@Valid @ModelAttribute User user, BindingResult errors, Model model) {
+        if (errors.hasErrors() | user.getFirstName().equals("") | user.getLastName().equals("") | user.getEmail().equals("")) {
+            model.addAttribute("User", user);
+            model.addAttribute("errorMessage", "FILL ALL FIELD");
+            return "users/addUser";
+        } else {
+            userService.saveUser(user);
+            return "redirect:/users";
+        }
     }
 
+
+    // Переход форму для редактирования
     @GetMapping("/editUser")
-    public String editUser(@RequestParam long id, Model model){
-        User user= userService.findUserbyId(id);
-        model.addAttribute("editUser",user);
+    public String editUser(@RequestParam long id, Model model) {
+        User user = userService.findUserbyId(id);
+        if (user == null) {
+            return "redirect:/users";
+        }
+        model.addAttribute("user", user);
         return "users/editUser";
     }
 
+    // Получение и проверка данных введеных в форму
     @PostMapping("/editUser")
-    public String editUserSubmint(@ModelAttribute User user, Model model) {
-        userService.saveUser(user);
-        model.addAttribute("editUser", user);
-        return "redirect:/users";
+    public String editUserSubmint(@Valid @ModelAttribute User user, BindingResult errors, Model model) {
+        if (errors.hasErrors() | user.getFirstName().equals("") | user.getLastName().equals("") | user.getEmail().equals("")) {
+            model.addAttribute("user", user);
+            model.addAttribute("errorMessage", "FILL ALL FIELD");
+            return "users/editUser";
+        } else {
+            userService.saveUser(user);
+            return "redirect:/users";
+        }
     }
-
-
 }

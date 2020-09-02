@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+</head>
+
+<body>
+<h1 style="text-align: center; color: black">
+    <span th:text="#{user.newUser}"></span>
+</h1>
+<form action="#" th:width="140" th:action="@{/users/editUser}" th:object="${user}" method="post">
+    <table th:align="center" border="1">
+        <tr>
+            <td><label th:text="#{user.firstName}"></label></td>
+            <td ><input type="text" th:min="4" th:field="*{firstName}"/></td>
+            <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName} ">NameError</td>
+        </tr>
+        <tr>
+            <td><span th:text="#{user.lastName}"></span></td>
+            <td><input type="text" th:field="*{lastName}"/></td>
+            <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">NameErrqor</td>
+        </tr>
+        <tr>
+            <td><label th:text="#{user.email}"></label></td>
+            <td ><input type="text" th:field="*{email}"/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">NameEwrror</td>
+        </tr>
+        <td ><input th:align="center" type="submit" value="Submit" /></td>
+    </table>
+
+    <h3 style="text-align: center; color: red">
+        <span th:text="${errorMessage}"></span>
+    </h3>
+
+</form>
+
+</body>
+</html>

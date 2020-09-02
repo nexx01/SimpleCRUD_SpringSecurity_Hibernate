@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.validation.MessageCodesResolver;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -15,41 +15,50 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("web")
 public class WebConfig implements WebMvcConfigurer {
 
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
 
     public WebConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
-    /* объявление статических ресурсов*/
+    //объявление статических ресурсов
+
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
-    /*Активизирует обработчик статических ресурсов.*/
+    //Активизирует обработчик статических ресурсов.
     @Override
     public void configureDefaultServletHandling(
             DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
-    /*Одна из реализаций ITemplateResolver resolves templates using Spring's Resource Resolution mechanism
- (see ResourceLoader.getResource(String))*/
-@Bean
-    public SpringResourceTemplateResolver templateResolver(){
-    SpringResourceTemplateResolver templateResolver=new SpringResourceTemplateResolver();
-    templateResolver.setApplicationContext(applicationContext);
-    templateResolver.setPrefix("/WEB-INF/pages/");
-    templateResolver.setSuffix(".html");
-    templateResolver.setCharacterEncoding("UTF-8");
-    return templateResolver;
-}
+    @Override
+    public MessageCodesResolver getMessageCodesResolver() {
+        return null;
+    }
+
+    //Одна из реализаций ITemplateResolver resolves templates using Spring's Resource Resolution mechanism
+    //(see ResourceLoader.getResource(String))
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setApplicationContext(applicationContext);
+        templateResolver.setPrefix("/WEB-INF/pages/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setTemplateMode("HTML5");
+        return templateResolver;
+    }
 
     @Bean
     public SpringTemplateEngine templateEngine() {
@@ -59,8 +68,8 @@ public class WebConfig implements WebMvcConfigurer {
         return templateEngine;
     }
 
-    /*Configure view resolvers to translate String-based view names returned from
-     controllers into concrete View implementations to perform rendering with.*/
+    //Configure view resolvers to translate String-based view names returned from
+    //   controllers into concrete View implementations to perform rendering with.
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -69,6 +78,7 @@ public class WebConfig implements WebMvcConfigurer {
         ThymeleafViewResolver viewResolver;
         resolver.setCharacterEncoding("UTF-8");
         resolver.setContentType("text/html; charset=UTF-8");
+
     }
 
     @Bean
@@ -77,10 +87,12 @@ public class WebConfig implements WebMvcConfigurer {
         return new CookieLocaleResolver();
     }
 
+
+    //Папка где находятся ресурсы для i18n
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("WEB-INF/i18n/messages");
+        messageSource.setBasename("WEB-INF/i18n/message");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

@@ -1,34 +1,39 @@
 package web.model;
 
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
+@Component
 @Entity
 @Table(name = "users")
+@NamedQueries({
+        @NamedQuery(name = User.FIND_ALL, query = "select s from User s"),
+        @NamedQuery(name = User.FIND_USER_BY_ID, query =
+                "select distinct s from User s where s.id = :id")
+})
+
 public class User {
+
+    public static final String FIND_ALL = "User.findAll";
+    public static final String FIND_USER_BY_ID = "User.findByid";
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column
     private String lastName;
 
-    //@Column(name = "email", unique = true,nullable = false,length = 50)
-    @Column(name = "email")
+    @Column
     private String email;
 
     public User() {
-    }
-
-
-    public User(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
     }
 
     public Long getId() {
@@ -61,5 +66,15 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

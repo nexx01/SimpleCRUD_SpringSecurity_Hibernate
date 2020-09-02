@@ -1,6 +1,5 @@
 package web.config;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,6 +24,7 @@ import java.util.logging.Logger;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
+
 @ComponentScan(value = "web")
 public class PersistenceJPAConfig {
 
@@ -32,12 +32,12 @@ public class PersistenceJPAConfig {
     private Environment env;
 
     @Bean
-    public DataSource getDataSource(){
+    public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("db.driver")));
         dataSource.setUrl(env.getProperty("db.url"));
         dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password") );
+        dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
     }
 
@@ -48,12 +48,12 @@ public class PersistenceJPAConfig {
     }
 
     @Bean
-    public JpaVendorAdapter jpaVendorAdapter(){
+    public JpaVendorAdapter jpaVendorAdapter() {
         return new HibernateJpaVendorAdapter();
     }
 
     @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
@@ -71,7 +71,7 @@ public class PersistenceJPAConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(getDataSource());
-        em.setPackagesToScan(new String[] { "web.model" });
+        em.setPackagesToScan(new String[]{"web.model"});
         em.setJpaProperties(additionalProperties());
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.afterPropertiesSet();
