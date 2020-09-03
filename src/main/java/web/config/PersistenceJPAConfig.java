@@ -19,7 +19,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 @Configuration
 @PropertySource("classpath:db.properties")

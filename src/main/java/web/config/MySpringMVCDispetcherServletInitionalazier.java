@@ -3,6 +3,7 @@ package web.config;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -38,7 +39,7 @@ public class MySpringMVCDispetcherServletInitionalazier extends AbstractAnnotati
 
 
 
-/*    @Override
+/*    @Override не работаеь
     protected Filter[] getServletFilters() {
 
         CharacterEncodingFilter cef=new CharacterEncodingFilter();
@@ -48,6 +49,12 @@ public class MySpringMVCDispetcherServletInitionalazier extends AbstractAnnotati
         return new Filter[]{new HiddenHttpMethodFilter() ,cef};
     }*/
 
-
+/*    @Override должен работать
+    protected Filter[] getServletFilters() {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+        return new Filter[] {characterEncodingFilter};
+    }*/
 }
 
