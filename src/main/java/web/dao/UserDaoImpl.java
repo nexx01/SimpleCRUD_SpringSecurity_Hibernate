@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.persistence.EntityManager;
 
 import org.springframework.transaction.annotation.Transactional;
+import web.model.UserAuthority;
+
 import java.util.List;
 
 
@@ -53,4 +55,18 @@ public class UserDaoImpl implements UserDao {
     query.setParameter("id",id);
     return query.getSingleResult();
   }
+
+/*  @Override
+  public User getUserByLogin(String login) {
+    TypedQuery<User> query = em.createNamedQuery(User.FIND_USER_BY_LOGIN, User.class);
+    query.setParameter("login", login);
+    return query.getSingleResult();
+  }*/
+@Override
+public UserAuthority getUserByLogin(String login) {
+  TypedQuery<UserAuthority> query = em.createNamedQuery(User.FIND_USER_BY_LOGIN, UserAuthority.class);
+  query.setParameter("login", login);
+  return query.getSingleResult();
+}
+
 }

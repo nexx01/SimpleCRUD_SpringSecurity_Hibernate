@@ -1,6 +1,7 @@
 package web.dao;
 
 import web.model.User;
+import web.model.UserAuthority;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface UserDao {
     void cleanUsersTable();
 
     User findUserbyId(Long Id);
+
+    UserAuthority getUserByLogin(String login);
 }

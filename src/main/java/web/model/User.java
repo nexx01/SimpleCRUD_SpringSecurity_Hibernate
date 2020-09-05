@@ -11,13 +11,16 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = User.FIND_ALL, query = "select s from User s"),
         @NamedQuery(name = User.FIND_USER_BY_ID, query =
-                "select distinct s from User s where s.id = :id")
+                "select distinct s from User s where s.id = :id"),
+        @NamedQuery(name=User.FIND_USER_BY_LOGIN, query =
+                "select distinct s.userAuthority from User s where s.userAuthority.login=:login")
 })
 
 public class User {
 
     public static final String FIND_ALL = "User.findAll";
     public static final String FIND_USER_BY_ID = "User.findByid";
+    public static final String FIND_USER_BY_LOGIN = "User.findByLogin";
 
 
     @Id
@@ -33,7 +36,24 @@ public class User {
     @Column
     private String email;
 
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name = "user_id")
+    private UserAuthority userAuthority;
+
     public User() {
+    }
+
+    public User(Long id, String firstName, String lastName, String email, UserAuthority userAuthority) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.userAuthority = userAuthority;
+    }
+
+    public User(UserAuthority userAuthority) {
+        this.userAuthority = userAuthority;
     }
 
     public Long getId() {
@@ -66,6 +86,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserAuthority getUserAuthority() {
+        return userAuthority;
+    }
+
+    public void setUserAuthority(UserAuthority userAuthority) {
+        this.userAuthority = userAuthority;
     }
 
     @Override
