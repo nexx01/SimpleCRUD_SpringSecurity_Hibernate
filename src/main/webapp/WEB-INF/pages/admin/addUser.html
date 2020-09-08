@@ -19,25 +19,21 @@
     <table th:align="center" border="1">
         <tr>
             <td><label th:text="#{user.firstName}"></label></td>
-            <td><input type="text" th:min="4" th:field="*{firstName}"/></td>
-            <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName} ">NameError</td>
+            <td><input type="text" th:min="4" th:field="*{firstName}" required/></td>
+            <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName} " >NameError</td>
         </tr>
         <tr>
             <td><span th:text="#{user.lastName}"></span></td>
-            <td><input type="text" th:field="*{lastName}"/></td>
+            <td><input type="text" th:field="*{lastName}" required/></td>
             <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">NameErrqor</td>
         </tr>
         <tr>
             <td><label th:text="#{user.email}"></label></td>
-            <td><input type="text" th:field="*{email}"/></td>
+            <td><input type="text" th:field="*{email}" required/></td>
             <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">NameEwrror</td>
         </tr>
         <td><input th:align="center" type="submit" value="Submit"/></td>
     </table>
-
-    <h3 style="text-align: center; color: red">
-        <span th:text="${errorMessage}"></span>
-    </h3>
 
 </form>
 

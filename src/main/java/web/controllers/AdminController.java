@@ -76,9 +76,8 @@ public class AdminController {
     // Получение и проверка данных введеных в форму
     @PostMapping("/editUser")
     public String editUserSubmint(@Valid @ModelAttribute User user, BindingResult errors, Model model) {
-        if (errors.hasErrors() | user.getFirstName().equals("") | user.getLastName().equals("") | user.getEmail().equals("")) {
+        if (errors.hasErrors()) {
             model.addAttribute("user", user);
-            model.addAttribute("errorMessage", "FILL ALL FIELD");
             return "admin/editUser";
         } else {
             userService.saveUser(user);
