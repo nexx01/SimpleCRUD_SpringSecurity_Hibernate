@@ -2,8 +2,6 @@ package web.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
-import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,7 +11,6 @@ public class MySpringMVCDispetcherServletInitionalazier extends AbstractAnnotati
     protected Class<?>[] getRootConfigClasses() {
         return null;
     }
-
 
     //Переопределяем метод, чтобы перекодировать текст пришедший из браузера
     @Override
@@ -37,19 +34,7 @@ public class MySpringMVCDispetcherServletInitionalazier extends AbstractAnnotati
     }
 
 
-
-
-/*    @Override не работаеь
-    protected Filter[] getServletFilters() {
-
-        CharacterEncodingFilter cef=new CharacterEncodingFilter();
-
-        cef.setEncoding("UTF-8");
-        cef.setForceEncoding(true);
-        return new Filter[]{new HiddenHttpMethodFilter() ,cef};
-    }*/
-
-/*    @Override должен работать
+/*    @Override
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");

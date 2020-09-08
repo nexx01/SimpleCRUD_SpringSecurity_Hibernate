@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users List</title>
+</head>
+<body>
+</div>
+<ul>
+    <li><a th:href="@{/logout}" th:utext="Logout">logout</a></li>
+</ul>
+</div>
+
+<h1 style="text-align: center; color: black">
+    <span th:text="#{user.personalPage}"></span>
+</h1>
+
+<table th:align="center" border="1" style="width: 300px">
+    <tbody>
+    <tr>
+        <td th:text="ID">ID</td>
+        <td><span th:text="${user.getId()}">ID </span></td>
+    </tr>
+    <tr>
+        <td th:text="#{user.firstName}">Name</td>
+        <td><span th:text="${user.getFirstName()}">Name </span></td>
+    </tr>
+    <tr>
+        <td th:text="#{user.lastName}">Last Name</td>
+        <td><span th:text="${user.getLastName()}"> LastName </span></td>
+    </tr>
+    <tr>
+        <td th:text="#{user.email}">E-mail</td>
+        <td><span th:text="${user.getEmail()}"> Email </span></td>
+    </tr>
+    <tr>
+        <td th:text="#{user.login}">Login</td>
+        <td><span th:text="${user.getLogin()}">Login </span></td>
+    </tr>
+    <tr>
+        <td th:text="#{user.password}">E-mail</td>
+        <td><span th:text="${user.getPassword()}"> Email </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

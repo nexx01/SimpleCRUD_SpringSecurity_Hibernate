@@ -12,4 +12,6 @@ public interface UserService {
     List<User> getAllUsers();
 
     User findUserbyId(Long Id);
+
+    User loadUserDetailsByLogin(String s);
 }

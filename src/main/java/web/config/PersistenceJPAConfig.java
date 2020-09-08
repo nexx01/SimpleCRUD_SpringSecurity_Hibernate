@@ -23,12 +23,16 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-
 @ComponentScan(value = "web")
 public class PersistenceJPAConfig {
 
+
+    private final Environment env;
+
     @Autowired
-    private Environment env;
+    public PersistenceJPAConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
@@ -39,7 +43,6 @@ public class PersistenceJPAConfig {
         dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
     }
-
 
     @Bean
     public PlatformTransactionManager transactionManager() {

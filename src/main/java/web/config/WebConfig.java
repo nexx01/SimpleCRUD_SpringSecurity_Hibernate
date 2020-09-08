@@ -28,8 +28,6 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     //объявление статических ресурсов
-
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");

@@ -1,68 +1,44 @@
 package web.model;
 
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 // Этот класс реализует интерфейс GrantedAuthority, в котором необходимо переопределить только один метод getAuthority() (возвращает имя роли).
 // Имя роли должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER.
+@Component
 @Entity
-@Table(name="authorities",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = { "role", "login" }))
+@Table(name = "roles")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role implements GrantedAuthority {
+    public static final String FIND_BY_NAME = "Role.findByName";
+    public static final String FIND_BY_ID = "Role.findByID";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_role_id",
-            unique = true, nullable = false)
-    private Long userRoleId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id", unique = true,
+            nullable = false, length = 45)
+    private Long id;
 
-    @Column(name = "role", nullable = false, length = 45)
-    private String role;
+    @Column(name = "role_name", unique = true, nullable = false, length = 45)
+    private String roleName;
 
-    @ManyToOne(/*fetch = FetchType.LAZY*/fetch = FetchType.EAGER)
-    @JoinColumn(name = "login", nullable = false)
-    private UserAuthority userAuthority;
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet();
 
-    public Role() {    }
-
-    public Role(String role, UserAuthority userAuthority) {
-        this.role = role;
-        this.userAuthority = userAuthority;
-    }
-
-    public Role(Long userRoleId, String role, UserAuthority userAuthority) {
-        this.userRoleId = userRoleId;
-        this.role = role;
-        this.userAuthority = userAuthority;
-    }
-
-    public Long getUserRoleId() {
-        return userRoleId;
-    }
-
-    public void setUserRoleId(Long userRoleId) {
-        this.userRoleId = userRoleId;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public UserAuthority getUserAuthority() {
-        return userAuthority;
-    }
-
-    public void setUserAuthority(UserAuthority userAuthority) {
-        this.userAuthority = userAuthority;
+    public Role(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
     public String getAuthority() {
-        return role;
+        return roleName;
     }
 }

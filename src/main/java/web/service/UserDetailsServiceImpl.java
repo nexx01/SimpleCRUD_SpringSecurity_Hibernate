@@ -16,14 +16,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userDaoImpl = userDaoImpl;
     }
 
-/*    @Autowired
-    private UserDao userDao;*/
-
     // «Пользователь» – это просто Object. В большинстве случаев он может быть
     //  приведен к классу UserDetails.
-    // Для создания UserDetails используется интерфейс UserDetailsService, с единственным методом:
-    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userDaoImpl.getUserByLogin(s);
+        return  userDaoImpl.getUserByLogin(s);
     }
 }
