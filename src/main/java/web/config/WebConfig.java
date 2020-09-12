@@ -1,3 +1,4 @@
+
 package web.config;
 
 import org.springframework.context.ApplicationContext;
@@ -108,3 +109,5 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 }
+
+

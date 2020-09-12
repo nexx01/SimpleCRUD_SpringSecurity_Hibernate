@@ -1,11 +1,14 @@
+/*
 package web.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import web.dao.RoleDao;
-import web.dao.UserDao;
+*/
+/*import web.dao.RoleDao;
+import web.dao.UserDao;*//*
+
 import web.model.Role;
 import web.model.User;
 
@@ -31,8 +34,10 @@ public class SetupDataLoader implements
         Role adminRole = new Role("ROLE_ADMIN");
         Role userRole = new Role("ROLE_USER");
 
-      /*  roleDao.saveRole(userRole);
-        roleDao.saveRole(adminRole);*/
+      */
+/*  roleDao.saveRole(userRole);
+        roleDao.saveRole(adminRole);*//*
+
         User user = new User("user", "user", true, "user", "user", "user");
         User admin = new User("admin", "admin", true, "admin", "admin", "admin");
         admin.addRole(adminRole);
@@ -41,4 +46,4 @@ public class SetupDataLoader implements
         userDao.saveUser(user);
         userDao.saveUser(admin);
     }
-}
+}*/

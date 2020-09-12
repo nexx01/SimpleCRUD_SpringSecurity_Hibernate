@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
 
-import javax.validation.Valid;
+/*import javax.validation.Valid;*/
 
 import java.util.List;
 
@@ -18,18 +18,15 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    UserService userService;
-
+    private final UserService userService;
     @Autowired
-    public void setSingerService(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
-
-
     @RequestMapping(method = RequestMethod.GET)
     public String list(ModelMap model) {
-        List<User> users = userService.getAllUsers();
+        Iterable<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return "admin/list";
     }
@@ -50,7 +47,7 @@ public class AdminController {
 
     // Получение и проверка данных введеных в форму
     @PostMapping("/addUser")
-    public String addUserSubmint(@Valid @ModelAttribute User user, BindingResult errors, Model model) {
+    public String addUserSubmint(/*@Valid*/ @ModelAttribute User user, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("User", user);
             return "admin/addUser";
@@ -74,7 +71,7 @@ public class AdminController {
 
     // Получение и проверка данных введеных в форму
     @PostMapping("/editUser")
-    public String editUserSubmint(@Valid @ModelAttribute User user, BindingResult errors, Model model) {
+    public String editUserSubmint(/*@Valid*/ @ModelAttribute User user, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("user", user);
             return "admin/editUser";
