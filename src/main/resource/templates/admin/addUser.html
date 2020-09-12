@@ -32,6 +32,16 @@
             <td><input type="text" th:field="*{email}" required/></td>
             <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">NameEwrror</td>
         </tr>
+        <tr>
+            <td><label th:text="#{user.login}"></label></td>
+            <td><input type="text" th:field="*{login}" required/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{login}">NameEwrror</td>
+        </tr>
+        <tr>
+            <td><label th:text="#{user.password}"></label></td>
+            <td><input type="text" th:field="*{password}" required/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{password}">NameEwrror</td>
+        </tr>
         <td><input th:align="center" type="submit" value="Submit"/></td>
     </table>
 

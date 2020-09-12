@@ -1,27 +1,56 @@
 
 package web.config;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.validation.MessageCodesResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 
 @Configuration
-@EnableWebMvc
-@ComponentScan("web")
 public class WebConfig implements WebMvcConfigurer {
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+    }
 
+
+
+                                //i18n
+    //Чтобы наше приложение могло определить, какая локаль используется в данный момент,
+    //имеет реализации, определяющие текущую локаль на основе сеанса, файлов cookie,
+    // заголовка Accept-Language или фиксированного значения
+    @Bean
+    public LocaleResolver localeResolver() {
+        //slr.setDefaultLocale(Locale.ENGLISH);
+        return new CookieLocaleResolver();
+    }
+
+    /*Bean-перехватчик, который переключится
+    на новую локаль на основе значения параметра lang, добавленного к запросу*/
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+
+    /*Чтобы вступить в силу, этот боб должен быть
+    добавлен в реестр перехватчиков приложения.*/
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+}
+
+
+
+
+/*Если ресурсы по стандартному пути то резольверы
+ * переопределять не нужно.*/
+
+/*
     private final ApplicationContext applicationContext;
 
     public WebConfig(ApplicationContext applicationContext) {
@@ -57,19 +86,19 @@ public class WebConfig implements WebMvcConfigurer {
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setTemplateMode("HTML5");
         return templateResolver;
-    }
-
+    }*/
+/*
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
-    }
+    }*/
 
-    //Configure view resolvers to translate String-based view names returned from
-    //   controllers into concrete View implementations to perform rendering with.
-    @Override
+//Configure view resolvers to translate String-based view names returned from
+//   controllers into concrete View implementations to perform rendering with.
+/*    @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
@@ -77,17 +106,13 @@ public class WebConfig implements WebMvcConfigurer {
         ThymeleafViewResolver viewResolver;
         resolver.setCharacterEncoding("UTF-8");
         resolver.setContentType("text/html; charset=UTF-8");
+}
 
-    }
-
-    @Bean
-    public LocaleResolver localeResolver() {
-        //slr.setDefaultLocale(Locale.ENGLISH);
-        return new CookieLocaleResolver();
-    }
+*/
 
 
-    //Папка где находятся ресурсы для i18n
+//Папка где находятся ресурсы для i18n
+/*
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -96,18 +121,10 @@ public class WebConfig implements WebMvcConfigurer {
         return messageSource;
     }
 
-    @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-        lci.setParamName("lang");
-        return lci;
-    }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
-    }
 
-}
+
+*/
+
 
 
