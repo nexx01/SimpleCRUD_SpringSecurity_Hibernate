@@ -53,7 +53,7 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet();
+    private Collection<Role> roles;
 
     @Column
     private String firstName;
@@ -64,6 +64,11 @@ public class User implements UserDetails {
     @Column
     private String email;
 
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public User(String login, String password, boolean enabled, String firstName, String lastName, String email) {
         this.login = login;
         this.password = password;
@@ -73,10 +78,11 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public void addRole(Role role) {
+/*    public void addRole(Role role) {
         roles.add(role);
         role.getUsers().add(this);
-    }
+    }*/
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
