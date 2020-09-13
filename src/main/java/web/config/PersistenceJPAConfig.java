@@ -26,7 +26,6 @@ import java.util.Properties;
 @ComponentScan(value = "web")
 public class PersistenceJPAConfig {
 
-
     private final Environment env;
 
     @Autowired

@@ -50,3 +50,4 @@ public class UserDaoImpl implements UserDao {
         return query.getSingleResult();
     }
 }
+

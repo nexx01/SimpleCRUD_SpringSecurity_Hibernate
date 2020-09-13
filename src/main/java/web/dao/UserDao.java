@@ -16,3 +16,4 @@ public interface UserDao {
 
     User getUserByLogin(String login);
 }
+

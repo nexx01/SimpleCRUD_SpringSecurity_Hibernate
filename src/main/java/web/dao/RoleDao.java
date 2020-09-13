@@ -8,3 +8,4 @@ public interface  RoleDao {
     Role saveRole(Role role);
     Role findById(Long Id);
 }
+

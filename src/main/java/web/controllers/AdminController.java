@@ -25,8 +25,6 @@ public class AdminController {
         this.userService = userService;
     }
 
-
-
     @RequestMapping(method = RequestMethod.GET)
     public String list(ModelMap model) {
         List<User> users = userService.getAllUsers();

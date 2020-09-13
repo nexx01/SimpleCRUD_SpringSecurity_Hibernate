@@ -33,7 +33,6 @@ public class MySpringMVCDispetcherServletInitionalazier extends AbstractAnnotati
         return new String[]{"/"};
     }
 
-
 /*    @Override
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();

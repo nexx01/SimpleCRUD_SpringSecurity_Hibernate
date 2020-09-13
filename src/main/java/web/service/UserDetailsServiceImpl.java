@@ -22,3 +22,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return  userDaoImpl.getUserByLogin(s);
     }
 }
+

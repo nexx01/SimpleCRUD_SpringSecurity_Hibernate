@@ -18,7 +18,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
     private final SuccessUserHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по ролям
 
-
     public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, SuccessUserHandler successUserHandler) {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;

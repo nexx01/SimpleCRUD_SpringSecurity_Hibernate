@@ -15,3 +15,4 @@ public interface UserService {
 
     User loadUserDetailsByLogin(String s);
 }
+

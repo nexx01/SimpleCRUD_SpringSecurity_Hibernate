@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-
 @Repository
 @Transactional
 public class RoleDaoImpl implements RoleDao{
