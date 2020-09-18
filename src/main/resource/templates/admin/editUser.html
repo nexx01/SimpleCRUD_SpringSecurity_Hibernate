@@ -30,18 +30,18 @@
         </tr>
         <tr>
             <td><label th:text="#{user.email}"></label></td>
-            <td><input type="text" th:field="*{email}" required/></td>
-            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">NameError</td>
+            <td><input type="text" th:field="*{age}" required/></td>
+            <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">NameError</td>
         </tr>
         <tr>
-            <td><label th:text="#{user.login}"></label></td>
-            <td><input type="text" th:field="*{login}" required/></td>
-            <td th:if="${#fields.hasErrors('email')}" th:errors="*{login}">NameEwrror</td>
+            <td><label th:text="#{user.email}"></label></td>
+            <td><input type="text" th:field="*{email}" required/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">NameEwrror</td>
         </tr>
         <tr>
             <td><label th:text="#{user.password}"></label></td>
             <td><input type="text" th:field="*{password}" required/></td>
-            <td th:if="${#fields.hasErrors('email')}" th:errors="*{password}">NameEwrror</td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">NameEwrror</td>
         </tr>
         <td><input th:align="center" type="submit" value="Submit"/></td>
     </table>

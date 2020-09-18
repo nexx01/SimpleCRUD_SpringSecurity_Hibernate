@@ -1,16 +1,20 @@
-<!--
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <title>Custom Login Page</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<div th:insert="~{fragment/headerBootstrapStyly.html :: styleheader}"></div>
 <body>
-<h2>Custom Login Page</h2>
+
+<div th:insert="~{fragment/login.html :: loginForm}"></div>
+<!--
+<div class="col">
 <form th:action="@{/login}" method="post">
     <label for="username">Username</label>: <input type="text"
                                                    id="username" name="username" autofocus="autofocus" /> <label
         for="password">Password</label>: <input type="password" id="password"
                                                 name="password" /><input type="submit" value="Log in" />
 </form>
+    </div>-->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<div th:insert="~{fragment/footer.html :: stylefooter}"></div>
 </body>
-</html>-->
+</html>

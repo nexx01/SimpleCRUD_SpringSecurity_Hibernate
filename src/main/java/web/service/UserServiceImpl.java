@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public User loadUserDetailsByLogin(String s) {
-        return userRepository.findByLogin(s);
+    public User loadUserDetailsByEmail(String s) {
+        return userRepository.findByEmail(s);
     }
 }

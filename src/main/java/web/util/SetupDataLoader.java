@@ -47,10 +47,10 @@ public class SetupDataLoader implements
         roleRepository.save(userRole);
         roleRepository.save(adminRole);
 
-        createUserIfNotFound("user", "user", true, "user", "user",
+        createUserIfNotFound("user@user.com", "user", true, "user", "user",
                 new ArrayList<>(Arrays.asList(userRole)));
 
-        createUserIfNotFound("admin", "admin", true, "admin", "admin",
+        createUserIfNotFound("admin@admin.com", "admin", true, "admin", "admin",
                 new ArrayList<>(Arrays.asList(adminRole, userRole)));
 
     }
@@ -68,11 +68,11 @@ public class SetupDataLoader implements
 
 
     @Transactional
-    User createUserIfNotFound(final String login, final String password, boolean enable,
+    User createUserIfNotFound(final String email, final String password, boolean enable,
                               final String firstName, final String lastName, final Collection<Role> roles) {
-        User user = userRepository.findByLogin(login);
+        User user = userRepository.findByEmail(email);
         if (user == null) {
-            user = new User(login,password);
+            user = new User(email,password);
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEnabled(enable);

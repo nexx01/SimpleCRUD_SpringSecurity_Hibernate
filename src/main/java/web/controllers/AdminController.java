@@ -1,6 +1,7 @@
 package web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,9 +24,12 @@ public class AdminController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String list(ModelMap model) {
+    public String list(@AuthenticationPrincipal User user,
+                       ModelMap model) {
         Iterable<User> users = userService.getAllUsers();
+
         model.addAttribute("users", users);
+        model.addAttribute(user);
         return "admin/list";
     }
 

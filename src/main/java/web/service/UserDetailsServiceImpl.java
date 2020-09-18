@@ -20,6 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     // «Пользователь» – это просто Object. В большинстве случаев он может быть
     //  приведен к классу UserDetails.
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return  userRepository.findByLogin(s);
+        return  userRepository.findByEmail(s);
     }
 }

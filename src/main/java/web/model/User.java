@@ -18,8 +18,8 @@ import java.util.Set;
         @NamedQuery(name = User.FIND_ALL, query = "select s from User s"),
         @NamedQuery(name = User.FIND_USER_BY_ID, query =
                 "select distinct s from User s where s.id = :id"),
-        @NamedQuery(name = User.FIND_USER_BY_LOGIN, query =
-                "select distinct s from User s where s.login=:login")
+        @NamedQuery(name = User.FIND_USER_BY_EMAIL, query =
+                "select distinct s from User s where s.email=:email")
 })
 
 @Getter
@@ -30,15 +30,15 @@ import java.util.Set;
 public class User implements UserDetails {
     public static final String FIND_ALL = "User.findAll";
     public static final String FIND_USER_BY_ID = "User.findByid";
-    public static final String FIND_USER_BY_LOGIN = "User.findByLogin";
+    public static final String FIND_USER_BY_EMAIL = "User.findByEmail";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "login", unique = true,
+    @Column(name = "email", unique = true,
             nullable = false, length = 45)
-    private String login; // уникальное значение
+    private String email; // уникальное значение
 
 
     @Column(name = "password",
@@ -62,27 +62,27 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column
-    private String email;
+    private byte age;
 
-    public User(String login, String password) {
-        this.login = login;
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public User(String login, String password, boolean enabled, String firstName, String lastName, String email) {
-        this.login = login;
+
+    public User(String email, String password, boolean enabled, String firstName, String lastName, byte age) {
+        this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.age = age;
     }
 
 /*    public void addRole(Role role) {
         roles.add(role);
         role.getUsers().add(this);
     }*/
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -96,7 +96,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
 
     @Override
