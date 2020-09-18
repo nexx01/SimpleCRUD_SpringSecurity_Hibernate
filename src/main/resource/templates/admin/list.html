@@ -14,57 +14,42 @@
           crossorigin="anonymous">
     <title>CRUD APP</title>
 </head>
+<style>
+    .row.content {
+        height: 1500px
+    }
+
+    .sidenav {
+       /* background-color: #00BFFF;*/
+        height: 100%;
+    }
+
+    .field {
+        background-color: #DCDCDC;
+    }
+
+</style>
+
+
 <body>
 
 <div th:insert="~{fragment/navbar.html :: navbar}"></div>
 
-<div class="container-sm">
-    <div class="row">
-        <div class="col" th:align="left">
-            <ul class="list-group  ml-6,mt-6">
 
-                <tr th:each="role : ${user.getRoles()} ">
-                    <td><span th:text="${role.getRoleName()}">RoleName </span></td>
-                </tr>
-            </ul>
-
-            <p class="down">
-                <a th:href="@{/user}" th:text="PersonalPage">PersonalPage</a>
-                <span th:text="#{user.userList}"></span>
-            </p>
-        </div><!--col-->
+<div class="container-fluid ">
+    <div class="row content">
+        <div class="col-sm-3 sidenav">
+            <ul class="nav nav-pills nav-stacked ">
+                <li><a th:href="@{/admin}">Admin</a></li>
+                <li><a th:href="@{/user}">User</a></li>
+            </ul> <!--устанавливает маркированный список-->
+            <br> <!--//перевод строки-->
+        </div>
 
 
-        <div class="col-9">
-            <h3 style="text-align: center; color: green">
-                <a href="/admin/addUser">Add User</a>
+        <div class="col-sm-9 field ">
 
-            <table border="1">
-                <tbody>
-                <tr>
-                    <td th:text="ID">ID</td>
-                    <td th:text="#{user.firstName}">Name</td>
-                    <td th:text="#{user.lastName}">Last Name</td>
-                    <td th:text="#{user.age}">Age</td>
-                    <td><span th:text="#{user.email}"> Email </span></td>
-                    <td><span th:text="#{user.password}"> Password </span></td>
-                    <td th:text="#{user.action}">Action</td>
-                </tr>
-                <tr th:each="user : ${users}">
-                    <td><span th:text="${user.getId()}">ID </span></td>
-                    <td><span th:text="${user.getFirstName()}">Name </span></td>
-                    <td><span th:text="${user.getLastName()}"> LastName </span></td>
-                    <td><span th:text="${user.getAge()}"> Age </span></td>
-                    <td><span th:text="${user.getEmail()}"> Email </span></td>
-                    <td><span th:text="${user.getPassword()}"> Password </span></td>
-                    <td>
-                        <a href="editUser.html" th:href="@{/admin/editUser(id=${user.getId()})}">edit</a>
-                        <a href="delete.html" th:href="@{/admin/delete(id=${user.getId()})}"> delete </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            </h3>
+
         </div><!--col-9-->
     </div><!--row-->
 </div><!--container-->
