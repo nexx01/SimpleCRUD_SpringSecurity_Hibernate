@@ -20,38 +20,215 @@
     }
 
     .sidenav {
-       /* background-color: #00BFFF;*/
+        /* background-color: #00BFFF;*/
         height: 100%;
     }
 
     .field {
-        background-color: #DCDCDC;
+        background-color: #FFFAFA;
     }
+
+    /*    .tableUsers {
+            background-color: #FFFFFF;
+            margin-top: 4px !important;
+        }*/
+    /*
+        .navbar-container .navbar-nav .navbar {
+            flex-direction: column !important;
+        }*/
+
+    /*    .active {
+            background-color: dodgerblue !important;
+        }*/
+
+    /*
+        btn:active {
+            outline-color: blue;
+        }
+    */
+
 
 </style>
 
 
 <body>
 
-<div th:insert="~{fragment/navbar.html :: navbar}"></div>
+<!--<div th:insert="~{fragment/navbar.html :: navbar}"></div>-->
+<nav class="navbar navbar-expand-sm  navbar-dark bg-dark text-white ">
+
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto ">
+            <li class="nav-item mt-1 ">
+                <a class="font-weight-bold " th:text="${user.getEmail()}"> Email </a>
+            </li>
+            <li class="nav-item mt-1">
+                <p class="ml-1" th:text="#{withRoles}">withRoles</p>
+            </li>
+
+            <li class="nav-item mt-1">
+                <tr th:each="role : ${user.getRoles()}">
+                    <a class="ml-1" th:text="${role.getRoleName()}">RoleName </a>
+                </tr>
+
+            </li>
+        </ul>
+
+        <a class=" text-white-50" th:href="@{/logout}" th:text="Logout">logout</a>
+    </div>
+</nav>
 
 
 <div class="container-fluid ">
     <div class="row content">
-        <div class="col-sm-3 sidenav">
-            <ul class="nav nav-pills nav-stacked ">
-                <li><a th:href="@{/admin}">Admin</a></li>
-                <li><a th:href="@{/user}">User</a></li>
-            </ul> <!--устанавливает маркированный список-->
-            <br> <!--//перевод строки-->
+        <div class="col-lg-2 bg-light field ">
+
+            <!--
+                        <button type="button" class="btn btn-success " checked  data-toggle="button"   data-onstyle="primary" >
+                            Single toggle
+                        </button>
+
+                        <button type="button" class="btn btn-light" data-toggle="button" aria-pressed="true" autocomplete="off" data-onstyle="primary" data-offstyle="warning"  >
+                            Кнопка-переключатель
+                        </button>
+            -->
+
+
+            <!--            <ul class="nav nav-pills nav-stacked  ">
+            &lt;!&ndash;                <li><a th:href="@{/admin}">Admin</a></li>&ndash;&gt;
+            &lt;!&ndash;                <a href="#" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Главный линк</a>&ndash;&gt;
+                            <button type="button" class="btn btn-link btn-lg active  btn-block" aria-pressed="true">Admin</button>
+                            <button type="button" class="btn btn-link btn-lg   btn-block">User</button>
+            &lt;!&ndash;                <li><a th:href="@{/user}">User</a></li>&ndash;&gt;
+                        </ul> &lt;!&ndash;устанавливает маркированный список&ndash;&gt;
+                        &lt;!&ndash;//перевод строки&ndash;&gt;-->
+
+            <div class="row ">
+
+
+                <!-- Пункты вертикального меню -->
+
+                <div href="#"
+                     class="btn  btn-link btn-fluid btn-lg active button('toggle') btn-block bg-primary text-light"
+                     role="button" aria-pressed="true">Admin
+                </div>
+
+                <a href="#" class="btn btn-lg active btn-block" role="button" aria-pressed="true">Ссылка</a>
+
+
+            </div>
+
+            <!--      <div class="btn-group-vertical btn-block ">
+                     &lt;!&ndash; <li class="nav-item" th:classappend="${#execInfo.processedTemplateName == 'index' ? 'active' : ''}">&ndash;&gt;
+
+                      <button type="button" class="btn btp-info  ">1</button>
+                      <button type="button" class="btn btn-secondary ">2</button>
+
+                  </div>-->
         </div>
 
+        <!--Table-->
+        <div class="col-sm-10 field ">
+            <div class="row mt-2 ml-1">
+                <h3>Admin panel </h3>
+            </div>
 
-        <div class="col-sm-9 field ">
 
+            <nav class="nav nav-pills flex-column flex-lg-row">
+                <button type="button" class="btn btn-light border border-grey" id="btnOwUs">Users table</button>
+                <button type="button" class="btn btn-link" href="addUser.html" th:href="@{/admin/addUser.html}">New
+                    user
+                </button>
+            </nav>
 
-        </div><!--col-9-->
-    </div><!--row-->
+            <div class=" border-top border-right border-left border-grey p-2">
+                All users
+            </div>
+
+            <div class="container-fluid border border-grey bg-white">
+                <table class="table table-light">
+                    <table class="table table-striped ">
+                        <thead>
+
+                        <th th:text="id">ID</th>
+                        <th th:text="#{user.firstName}">First Name</th>
+                        <th th:text="#{user.lastName}">Last Name</th>
+                        <th th:text="#{user.age}">Age</th>
+                        <th th:text="#{user.email}"> E-mail</th>
+                        <th th:text="#{user.password}"> Password</th>
+                        <th th:text="#{user.edit}">Edit</th>
+                        <th th:text="#{user.delete}">Delete</th>
+
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td><span th:text="${user.getId()}">ID </span></td>
+                            <td><span th:text="${user.getFirstName()}">Name </span></td>
+                            <td><span th:text="${user.getLastName()}"> LastName </span></td>
+                            <td><span th:text="${user.getAge()}"> Age </span></td>
+                            <td><span th:text="${user.getEmail()}"> Email </span></td>
+                            <td><span th:text="${user.getPassword()}"> Password </span></td>
+                            <td>
+
+                                <button type="button" class="btn btn-info" href="editUser.html"
+                                        th:href="@{/admin/editUser(id=${user.getId()})}">edit
+                                </button>
+                                <!--                                    <a href="editUser.html" th:href="@{/admin/editUser(id=${user.getId()})}">edit</a>-->
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" href="delete.html"
+                                        th:href="@{/admin/delete(id=${user.getId()})}"> delete
+                                </button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </table>
+            </div>
+        </div>
+    </div><!--col-9-->
+</div><!--row-->
 </div><!--container-->
+
+
+<script>
+    $('#toggleState').on('click', function () {
+        var toggleBtn = $('#toggle');
+        toggleBtn.button('toggle');
+        toggleBtn.hasClass('active') ? toggleBtn.text('Включено') : toggleBtn.text('Выключено');
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</div>
+
+
+<!--<script >
+    const b1 = document.getElementById("btnOwUs");
+    b1.onclick = function() {
+        b1.style.background = "blue";
+    }
+
+
+    function myFunction() {
+        document.getElementById("demo").style.color = "red";
+    }
+</script>-->
 </body>
 </html>
+
+
