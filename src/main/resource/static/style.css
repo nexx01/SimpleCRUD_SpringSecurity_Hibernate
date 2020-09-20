@@ -1,3 +1,25 @@
+
+.row.content {
+    height: 1500px
+}
+
+.sidenav {
+    /* background-color: #00BFFF;*/
+    height: 100%;
+}
+
+.field {
+    background-color: #FFFAFA;
+}
+
+
+.active {
+    background-color: dodgerblue !important;
+    color: white;  !important;
+.text-secondary
+}
+
+/*
 #sidebar {
     width: 250px;
     position: fixed;
@@ -132,3 +154,5 @@ a.article:hover {
     top: 0;
     right: 0;
 }
+*/
+

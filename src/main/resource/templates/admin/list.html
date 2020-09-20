@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+
+
+    <link th:rel="style" href="/static/style.css">
     <title>CRUD APP</title>
 </head>
 <style>
@@ -28,25 +31,12 @@
         background-color: #FFFAFA;
     }
 
-    /*    .tableUsers {
-            background-color: #FFFFFF;
-            margin-top: 4px !important;
-        }*/
-    /*
-        .navbar-container .navbar-nav .navbar {
-            flex-direction: column !important;
-        }*/
 
-    /*    .active {
-            background-color: dodgerblue !important;
-        }*/
-
-    /*
-        btn:active {
-            outline-color: blue;
-        }
-    */
-
+            .active {
+                background-color: dodgerblue !important;
+               color: white;  !important;
+            .text-secondary
+            }
 
 </style>
 
@@ -83,15 +73,25 @@
     <div class="row content">
         <div class="col-lg-2 bg-light field ">
 
-            <!--
-                        <button type="button" class="btn btn-success " checked  data-toggle="button"   data-onstyle="primary" >
-                            Single toggle
-                        </button>
+            <!--                       <button type="button" class="btn btn-success " checked  data-toggle="button"   data-onstyle="primary" >
+                                       Single toggle
+                                   </button>
 
-                        <button type="button" class="btn btn-light" data-toggle="button" aria-pressed="true" autocomplete="off" data-onstyle="primary" data-offstyle="warning"  >
-                            Кнопка-переключатель
-                        </button>
-            -->
+                                   <button type="button" class="btn btn-light" data-toggle="button" aria-pressed="true" autocomplete="off" data-onstyle="primary" data-offstyle="warning"  >
+                                       Кнопка-переключатель
+                                   </button>
+
+                       <div class="btn-group-vertical " data-toggle="buttons">
+                           <button class="btn btn-primary active">
+                               <a type="button" checked autocomplete="on"></a> Checkbox 1 (pre-checked)
+                           </button>
+                           <button class="btn btn-primary">
+                               <a type="button" > Checkbox 2 </a>
+                           </button>
+                           <button class="btn btn-primary">
+                               <a type="button" autocomplete="off"> Checkbox 3 </a>
+                           </button>
+                       </div>-->
 
 
             <!--            <ul class="nav nav-pills nav-stacked  ">
@@ -103,96 +103,210 @@
                         </ul> &lt;!&ndash;устанавливает маркированный список&ndash;&gt;
                         &lt;!&ndash;//перевод строки&ndash;&gt;-->
 
-            <div class="row ">
+            <div class="row">
 
 
                 <!-- Пункты вертикального меню -->
+                <div class="btn-group-vertical btn-group-toggle btn-block" data-toggle="buttons">
+                    <!--    <div href="#"
+                             class="btn  btn-link btn-fluid btn-lg active button('toggle') btn-block bg-primary text-light "
+                             role="button" aria-pressed="true">Admin
+                        </div>
 
-                <div href="#"
-                     class="btn  btn-link btn-fluid btn-lg active button('toggle') btn-block bg-primary text-light"
-                     role="button" aria-pressed="true">Admin
+                        <a href="#" class="btn btn-lg  btn-block" role="button" aria-pressed="true">Ссылка</a>
+
+                        </div>-->
+
+                    <label class="btn btn-white-50 active ">
+                        <input type="radio" name="options" id="option1" checked> Admin
+                    </label>
+                    <label class="btn btn-white-50 ">
+                        <input type="radio" name="options" id="option2"> User
+                    </label>
                 </div>
 
-                <a href="#" class="btn btn-lg active btn-block" role="button" aria-pressed="true">Ссылка</a>
+                <!--      <div class="btn-group-vertical btn-block ">
+                         &lt;!&ndash; <li class="nav-item" th:classappend="${#execInfo.processedTemplateName == 'index' ? 'active' : ''}">&ndash;&gt;
 
+                          <button type="button" class="btn btp-info  ">1</button>
+                          <button type="button" class="btn btn-secondary ">2</button>
 
+                      </div>-->
             </div>
-
-            <!--      <div class="btn-group-vertical btn-block ">
-                     &lt;!&ndash; <li class="nav-item" th:classappend="${#execInfo.processedTemplateName == 'index' ? 'active' : ''}">&ndash;&gt;
-
-                      <button type="button" class="btn btp-info  ">1</button>
-                      <button type="button" class="btn btn-secondary ">2</button>
-
-                  </div>-->
         </div>
 
-        <!--Table-->
-        <div class="col-sm-10 field ">
-            <div class="row mt-2 ml-1">
-                <h3>Admin panel </h3>
-            </div>
+            <!--Table-->
+            <div class="col-sm-10 field ">
+                <div class="row mt-2 ml-1">
+                    <h3>Admin panel </h3>
+                </div>
 
 
-            <nav class="nav nav-pills flex-column flex-lg-row">
-                <button type="button" class="btn btn-light border border-grey" id="btnOwUs">Users table</button>
-                <button type="button" class="btn btn-link" href="addUser.html" th:href="@{/admin/addUser.html}">New
-                    user
-                </button>
-            </nav>
+                <nav class="nav nav-pills flex-column flex-lg-row">
+                    <button type="button" class="btn btn-light " id="btnOwUs">Users table</button>
+                    <button type="button" class="btn btn-link" href="addUser.html" th:href="@{/admin/addUser.html}">New
+                        user
+                    </button>
+                </nav>
+                <!--            <ul class="nav nav-tabs ">
+                                <li class="active "><a href="#">User table</a></li>
+                                <li class="ml-2"><a href="#">New user</a></li>
+                            </ul>
+                            <div class=" border-top border-right border-left border-grey p-2">
+                                All users
+                            </div>-->
 
-            <div class=" border-top border-right border-left border-grey p-2">
-                All users
-            </div>
+                <div class="container-fluid border border-grey bg-white">
+                    <table class="table table-light">
+                        <table class="table table-striped ">
+                            <thead>
 
-            <div class="container-fluid border border-grey bg-white">
-                <table class="table table-light">
-                    <table class="table table-striped ">
-                        <thead>
+                            <th th:text="id">ID</th>
+                            <th th:text="#{user.firstName}">First Name</th>
+                            <th th:text="#{user.lastName}">Last Name</th>
+                            <th th:text="#{user.age}">Age</th>
+                            <th th:text="#{user.email}"> E-mail</th>
+                            <th th:text="#{user.password}"> Password</th>
+                            <th th:text="#{user.edit}">Edit</th>
+                            <th th:text="#{user.delete}">Delete</th>
 
-                        <th th:text="id">ID</th>
-                        <th th:text="#{user.firstName}">First Name</th>
-                        <th th:text="#{user.lastName}">Last Name</th>
-                        <th th:text="#{user.age}">Age</th>
-                        <th th:text="#{user.email}"> E-mail</th>
-                        <th th:text="#{user.password}"> Password</th>
-                        <th th:text="#{user.edit}">Edit</th>
-                        <th th:text="#{user.delete}">Delete</th>
+                            </tr>
 
-                        </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${users}">
+                                <td><span th:text="${user.getId()}">ID </span></td>
+                                <td><span th:text="${user.getFirstName()}">Name </span></td>
+                                <td><span th:text="${user.getLastName()}"> LastName </span></td>
+                                <td><span th:text="${user.getAge()}"> Age </span></td>
+                                <td><span th:text="${user.getEmail()}"> Email </span></td>
+                                <td><span th:text="${user.getPassword()}"> Password </span></td>
+                                <td>
 
-                        </thead>
-                        <tbody>
-                        <tr th:each="user : ${users}">
-                            <td><span th:text="${user.getId()}">ID </span></td>
-                            <td><span th:text="${user.getFirstName()}">Name </span></td>
-                            <td><span th:text="${user.getLastName()}"> LastName </span></td>
-                            <td><span th:text="${user.getAge()}"> Age </span></td>
-                            <td><span th:text="${user.getEmail()}"> Email </span></td>
-                            <td><span th:text="${user.getPassword()}"> Password </span></td>
-                            <td>
+                                    <button type="button" class="btn btn-info" href="editUser.html"
+                                            th:href="@{/admin/editUser(id=${user.getId()})}">edit
+                                    </button>
+                                    <!--                                    <a href="editUser.html" th:href="@{/admin/editUser(id=${user.getId()})}">edit</a>-->
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" href="delete.html"
+                                            th:href="@{/admin/delete(id=${user.getId()})}"> delete
+                                    </button>
+                                </td>
+                            </tr>
 
-                                <button type="button" class="btn btn-info" href="editUser.html"
-                                        th:href="@{/admin/editUser(id=${user.getId()})}">edit
-                                </button>
-                                <!--                                    <a href="editUser.html" th:href="@{/admin/editUser(id=${user.getId()})}">edit</a>-->
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger" href="delete.html"
-                                        th:href="@{/admin/delete(id=${user.getId()})}"> delete
-                                </button>
-                            </td>
-                        </tr>
+                            </tbody>
 
-                        </tbody>
+                        </table>
 
                     </table>
-
-                </table>
+                </div>
             </div>
-        </div>
-    </div><!--col-9-->
-</div><!--row-->
+
+
+            <!--
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Запустить модальное окно
+                    </button>
+
+                    &lt;!&ndash; Modal &ndash;&gt;
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel" th:text="#{user.newUser}">New User</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h1 style="text-align: center; color: black">
+                                        <span th:text="#{user.newUser}"></span>
+                                    </h1>
+                                    <form action="#" th:width="140" th:action="@{/admin/addUser}" th:object="${user}" method="post">
+                                        <table th:align="center" border="1">
+                                            <tr>
+                                                <td><label th:text="#{user.firstName}"></label></td>
+                                                <td><input type="text" th:min="4" th:field="*{firstName}" required/></td>
+            &lt;!&ndash;                                    <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName} " >NameError</td>&ndash;&gt;
+                                            </tr>
+                                            <tr>
+                                                <td><span th:text="#{user.lastName}"></span></td>
+                                                <td><input type="text" th:field="*{lastName}" required/></td>
+            &lt;!&ndash;                                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">NameErrqor</td>&ndash;&gt;
+                                            </tr>
+                                            <tr>
+                                                <td><label th:text="#{user.age}"></label></td>
+                                                <td><input type="text" th:field="*{age}" required/></td>
+            &lt;!&ndash;                                    <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">NameEwrror</td>&ndash;&gt;
+                                            </tr>
+                                            <tr>
+                                                <td><label th:text="#{user.email}"></label></td>
+                                                <td><input type="text" th:field="*{email}" required/></td>
+            &lt;!&ndash;                                    <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">NameEwrror</td>&ndash;&gt;
+                                            </tr>
+                                            <tr>
+                                                <td><label th:text="#{user.password}"></label></td>
+                                                <td><input type="text" th:field="*{password}" required/></td>
+            &lt;!&ndash;                                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">NameEwrror</td>&ndash;&gt;
+                                            </tr>
+                                        </table>
+
+                                    </form>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h1 style="text-align: center; color: black">
+                        <span th:text="#{user.newUser}"></span>
+                    </h1>
+                    <form action="#" th:width="140" th:action="@{/admin/addUser}" th:object="${user}" method="post">
+                        <table th:align="center" border="1">
+                            <tr>
+                                <td><label th:text="#{user.firstName}"></label></td>
+                                <td><input type="text" th:min="4" th:field="*{firstName}" required/></td>
+                                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName} " >NameError</td>
+                            </tr>
+                            <tr>
+                                <td><span th:text="#{user.lastName}"></span></td>
+                                <td><input type="text" th:field="*{lastName}" required/></td>
+                                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">NameErrqor</td>
+                            </tr>
+                            <tr>
+                                <td><label th:text="#{user.age}"></label></td>
+                                <td><input type="text" th:field="*{age}" required/></td>
+                                <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">NameEwrror</td>
+                            </tr>
+                            <tr>
+                                <td><label th:text="#{user.email}"></label></td>
+                                <td><input type="text" th:field="*{email}" required/></td>
+                                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">NameEwrror</td>
+                            </tr>
+                            <tr>
+                                <td><label th:text="#{user.password}"></label></td>
+                                <td><input type="text" th:field="*{password}" required/></td>
+                                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">NameEwrror</td>
+                            </tr>
+                            <td><input th:align="center" type="submit" value="Submit"/></td>
+                        </table>
+
+                    </form>
+
+
+            -->
+
+        </div><!--col-9-->
+    </div><!--row-->
 </div><!--container-->
 
 

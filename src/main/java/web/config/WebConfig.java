@@ -16,6 +16,13 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("home");
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");//указываем что ресурсы ищем в дереве файлов
+
+    }
+
     //i18n
     //Чтобы  приложение могло определить, какая локаль используется в данный момент,
     //имеет реализации, определяющие текущую локаль на основе сеанса, файлов cookie,
