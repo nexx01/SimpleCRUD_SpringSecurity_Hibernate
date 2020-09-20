@@ -33,6 +33,19 @@ public class AdminController {
         return "admin/list";
     }
 
+    @GetMapping("/list")
+    public String list2(@AuthenticationPrincipal User user,
+                       ModelMap model) {
+        Iterable<User> users = userService.getAllUsers();
+
+        model.addAttribute("users", users);
+        model.addAttribute(user);
+        return "redirect:/admin";
+    }
+
+
+
+
     @GetMapping("/delete")
     public String deleteUser(@RequestParam long id) {
         User user = userService.findUserbyId(id);
