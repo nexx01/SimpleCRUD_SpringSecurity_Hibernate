@@ -1,15 +1,208 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="~{fragment/headerBootstrapStyly.html :: styleheader}"></div>
 <head>
-    <meta charset="UTF-8">
-    <title>Users List</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!--// говорим системе что нужно считывать плотность пикселей устройства
+    // и при необходимости делать шрифт крупней-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <!--// Подключаем собственно стили  bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <title>CRUD APP</title>
+    <style>
+        .row.content {
+            height: 1500px
+        }
+
+        .sidenav {
+            /* background-color: #00BFFF;*/
+            height: 100%;
+        }
+
+        .field {
+            background-color: #FFFAFA;
+        }
+
+
+        .active {
+            background-color: dodgerblue !important;
+            color: white;  !important;
+        .text-secondary
+        }
+
+    </style>
+
+
+
+
+
+
+
 </head>
 <body>
+
+<nav class="navbar navbar-expand-sm  navbar-dark bg-dark text-white ">
+
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto ">
+            <li class="nav-item mt-1 ">
+                <a class="font-weight-bold " th:text="${user.getEmail()}"> Email </a>
+            </li>
+            <li class="nav-item mt-1">
+                <p class="ml-1" th:text="#{withRoles}">withRoles</p>
+            </li>
+
+            <li class="nav-item mt-1">
+                <tr th:each="role : ${user.getRoles()}">
+                    <a class="ml-1" th:text="${role.getRoleName()}">RoleName </a>
+                </tr>
+
+            </li>
+        </ul>
+        <button  type="button" class="btn btn-link text-white-50"
+                th:href="@{/logout}"> logout
+        </button>
+        <a class=" text-white-50" th:href="@{/logout}" th:text="Logout">logout</a>
+    </div>
+</nav>
+
+
+
+<div class="container-fluid ">
+    <div class="row content">
+        <div class="col-lg-2 bg-light field ">
+
+            <div class="row">
+
+
+                <!-- Пункты вертикального меню -->
+                <div class="btn-group-vertical btn-group-toggle btn-block" data-toggle="buttons">
+
+                <!--    <label class="btn btn-white-50 active ">
+                        <input type="radio" name="options" id="option1" checked> Admin
+                    </label>-->
+                    <label class="btn btn-white-50 active">
+                        <input type="radio" name="options" id="option2"> User
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <!--Table-->
+        <div class="col-sm-10 field ">
+            <div class="row mt-2 ml-1">
+                <h3>User information-page</h3>
+            </div>
+
+
+            <nav class="nav nav-pills flex-column flex-lg-row">
+                <button type="button" class="btn btn-light " id="btnOwUs">About user</button>
+<!--                <button type="button" class="btn btn-link" href="addUser.html" th:href="@{/admin/addUser.html}">New-->
+<!--                    user-->
+<!--                </button>-->
+            </nav>
+            <div class="container-fluid border border-grey bg-white">
+                <table class="table table-light">
+                    <table class="table table-striped ">
+                        <thead>
+
+                        <th th:text="id">ID</th>
+                        <th th:text="#{user.firstName}">First Name</th>
+                        <th th:text="#{user.lastName}">Last Name</th>
+                        <th th:text="#{user.age}">Age</th>
+                        <th th:text="#{user.email}"> E-mail</th>
+                        <th th:text="#{user.password}"> Password</th>
+                        <th th:text="#{user.edit}">Edit</th>
+                        <th th:text="#{user.delete}">Delete</th>
+
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td><span th:text="${user.getId()}">ID </span></td>
+                            <td><span th:text="${user.getFirstName()}">Name </span></td>
+                            <td><span th:text="${user.getLastName()}"> LastName </span></td>
+                            <td><span th:text="${user.getAge()}"> Age </span></td>
+                            <td><span th:text="${user.getEmail()}"> Email </span></td>
+                            <td><span th:text="${user.getPassword()}"> Password </span></td>
+                            <td>
+
+                                <button type="button" class="btn btn-info" href="editUser.html"
+                                        th:href="@{/admin/editUser(id=${user.getId()})}">edit
+                                </button>
+                                <!--                                    <a href="editUser.html" th:href="@{/admin/editUser(id=${user.getId()})}">edit</a>-->
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" href="delete.html"
+                                        th:href="@{/admin/delete(id=${user.getId()})}"> delete
+                                </button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </table>
+            </div>
+        </div>
+
+
+    </div><!--col-9-->
+</div><!--row-->
+</div><!--container-->
+
+
+<script>
+    $('#toggleState').on('click', function () {
+        var toggleBtn = $('#toggle');
+        toggleBtn.button('toggle');
+        toggleBtn.hasClass('active') ? toggleBtn.text('Включено') : toggleBtn.text('Выключено');
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </div>
-<ul>
-    <li><a th:href="@{/logout}" th:utext="Logout">logout</a></li>
-</ul>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <h1 style="text-align: center; color: black">
     <span th:text="#{user.personalPage}"></span>
