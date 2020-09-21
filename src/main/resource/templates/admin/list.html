@@ -57,10 +57,12 @@
                 <p class="ml-1" th:text="#{withRoles}">withRoles</p>
             </li>
 
-            <li class="nav-item mt-1">
-                <tr th:each="role : ${user.getRoles()}">
-                    <a class="ml-1" th:text="${role.getRoleName()}">RoleName </a>
-                </tr>
+            <li class="nav-item mt-1 ml-1">
+                <td>
+                    <a th:each="role : ${user.getRoles()}"
+                       th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
+                    > Role </a>
+                </td>
 
             </li>
         </ul>
@@ -84,7 +86,7 @@
             <div class="row">
                 <div class="nav-col  btn-group-vertical btn-group-toggle btn-block">
                     <button type="button" class="nav-item btn btn-white-50 active">
-                        <a class="nav-link active nav-fill" href="list.html">Admin</a>
+                        <a class="nav-link active nav-fill" href="/admin">Admin</a>
                     </button>
                     <button type="button" class="nav-item btn btn-white-50 ">
                         <a class="nav-link  nav-fill " href="/user">User</a>
@@ -99,20 +101,30 @@
                 <h3>Admin panel </h3>
             </div>
 
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/addUser">Link</a>
+                </li>
 
-            <nav class="nav nav-pills flex-column flex-lg-row">
-                <button type="button" class="btn btn-light " id="btnOwUs">Users table</button>
-                <button type="button" class="btn btn-link" href="addUser.html" th:href="@{/admin/addUser.html}">New
-                    user
-                </button>
-            </nav>
-            <!--            <ul class="nav nav-tabs ">
-                            <li class="active "><a href="#">User table</a></li>
-                            <li class="ml-2"><a href="#">New user</a></li>
-                        </ul>
-                        <div class=" border-top border-right border-left border-grey p-2">
-                            All users
-                        </div>-->
+            </ul>
+<!--            <nav class="nav nav-pills flex-column flex-lg-row">-->
+<!--            <div class="nav-row nav-tabs  ">-->
+<!--                <button  class="nav-item ">-->
+<!--                    <a class="nav-link   " href="/admin">User table</a>-->
+<!--                </button>-->
+<!--                <button  class="nav-item  ">-->
+<!--                    <a class="nav-link   " href="/admin/addUser">User</a>-->
+<!--                </button>-->
+<!--&lt;!&ndash;            </nav>&ndash;&gt;-->
+<!--            </div>-->
+
+            <div class="container-fluid border-top border-left border-right border-grey width: 100%">
+                <label class="mt-1">Users table</label>
+            </div>
+
 
             <div class="container-fluid border border-grey bg-white">
                 <table class="table table-light">
@@ -138,7 +150,11 @@
                             <td><span th:text="${user.getLastName()}"> LastName </span></td>
                             <td><span th:text="${user.getAge()}"> Age </span></td>
                             <td><span th:text="${user.getEmail()}"> Email </span></td>
-                            <td><span th:text="${user.getPassword()}"> Password </span></td>
+                            <td>
+                                <a th:each="role : ${user.getRoles()}"
+                                   th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
+                                > Role </a>
+                            </td>
                             <td>
 
                                 <button type="button" class="btn btn-info" href="editUser.html"
