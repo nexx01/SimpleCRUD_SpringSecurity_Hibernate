@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
+import web.service.RoleService;
 import web.service.UserService;
 
 /*import javax.validation.Valid;*/
@@ -17,11 +18,17 @@ import web.service.UserService;
 public class AdminController {
 
     private final UserService userService;
+    private  final RoleService roleService;
 
-    @Autowired
-    public AdminController(UserService userService) {
+
+    //@Autowired
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
+
+
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(@AuthenticationPrincipal User user,
@@ -55,8 +62,8 @@ public class AdminController {
 
     // Получение и проверка данных введеных в форму
     @GetMapping("/addUser")
-    public String addUserView(Model model) {
-        model.addAttribute("user", new User());
+    public String addUserView(@AuthenticationPrincipal User user, Model model) {
+      model.addAttribute("user", user);
         return "admin/addUser";
     }
 
