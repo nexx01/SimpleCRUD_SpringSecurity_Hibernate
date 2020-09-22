@@ -7,9 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import web.model.Role;
 import web.model.User;
 import web.service.RoleService;
 import web.service.UserService;
+
+import java.util.*;
 
 /*import javax.validation.Valid;*/
 
@@ -18,7 +21,7 @@ import web.service.UserService;
 public class AdminController {
 
     private final UserService userService;
-    private  final RoleService roleService;
+    private final RoleService roleService;
 
 
     //@Autowired
@@ -26,8 +29,6 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-
-
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -42,15 +43,13 @@ public class AdminController {
 
     @GetMapping("/list")
     public String list2(@AuthenticationPrincipal User user,
-                       ModelMap model) {
+                        ModelMap model) {
         Iterable<User> users = userService.getAllUsers();
 
         model.addAttribute("users", users);
         model.addAttribute(user);
         return "redirect:/admin";
     }
-
-
 
 
     @GetMapping("/delete")
@@ -62,21 +61,31 @@ public class AdminController {
 
     // Получение и проверка данных введеных в форму
     @GetMapping("/addUser")
-    public String addUserView(@AuthenticationPrincipal User user, Model model) {
-      model.addAttribute("user", user);
+    public String addUserView(@AuthenticationPrincipal User authuser, Model model) {
+        model.addAttribute("authuser", authuser);
+        model.addAttribute("user",new User());
+        Iterable<Role> roles = roleService.getAllRoles();
+        model.addAttribute("roles", roles);
         return "admin/addUser";
     }
 
     // Получение и проверка данных введеных в форму
     @PostMapping("/addUser")
-    public String addUserSubmint(/*@Valid*/ @ModelAttribute User user, BindingResult errors, Model model) {
-        if (errors.hasErrors()) {
-            model.addAttribute("User", user);
-            return "admin/addUser";
-        } else {
-            userService.saveUser(user);
-            return "redirect:/admin";
-        }
+    public String addUserSubmint(@RequestParam("firstname") String firstName, BindingResult errors, Model model) {
+//        User userFromDb = userService.findByEmail(user.getEmail());
+//        if (userFromDb != null) {
+//            model.addAttribute("message", "UserExist!");
+//        }
+//
+////        if (errors.hasErrors()) {
+////            model.addAttribute("User", user);
+////            return "admin/addUser";
+////        }
+//        user.setEnabled(true);
+
+//        userService.saveUser(user);
+        return "redirect:/admin";
+
     }
 
 

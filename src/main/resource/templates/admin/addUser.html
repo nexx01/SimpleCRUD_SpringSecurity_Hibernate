@@ -51,7 +51,7 @@
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto ">
             <li class="nav-item mt-1 ">
-                <a class="font-weight-bold " th:text="${user.getEmail()}"> Email </a>
+                <a class="font-weight-bold " th:text="${authuser.getEmail()}"> Email </a>
             </li>
             <li class="nav-item mt-1">
                 <p class="ml-1" th:text="#{withRoles}">withRoles</p>
@@ -59,7 +59,7 @@
 
             <li class="nav-item mt-1 ml-1">
                 <td>
-                    <a th:each="role : ${user.getRoles()}"
+                    <a th:each="role : ${authuser.getRoles()}"
                        th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
                     > Role </a>
                 </td>
@@ -128,67 +128,65 @@
                     <div class="col"></div>
                     <div class="col">
 
-                        <form class="needs-validation" novalidate action="#"
-                              th:action="@{/admin/addUser}" method="post">
-                            <div class="form-group text-center">
 
-                                <label for="validationCustom01">First name</label>
-                                <input type="text" class="form-control" id="validationCustom01"
-                                       th:min="4"  required>
-
-                            </div>
-                <form class="needs-validation" novalidate action="#"
-                      th:action="@{/admin/addUser}" th:object="${user}" method="post">
+                <form class="needs-validation" novalidate name="data[]"
+                      th:action="@{/admin/addUser}"  method="post">
                     <div class="form-group text-center">
                         <label for="validationCustom01">First name</label>
                         <input type="text" class="form-control" id="validationCustom01"
-                               th:min="4" th:field="*{firstName}" required
+                               th:min="4"  name="firstName" required
                                >
                     </div>
                     <div class="form-group text-center">
                         <label for="validationCustom02">Last name</label>
                         <input type="text" class="form-control" id="validationCustom02"
-                               th:min="4"  th:field="*{lastName}" required
+                               th:min="4"  name="lastName" required
                                >
                     </div>
 
                     <div class="form-group text-center">
                         <label for="validationCustom03">Age</label>
                         <input  type="number" class="form-control" id="validationCustom03"
-                               th:field="*{age}" required
+                                name="age" required
                              >
                     </div>
                         <div class="form-group text-center">
-                            <label for="validationCustom04">Age</label>
+                            <label for="validationCustom04">email</label>
                             <input  type="email"  class="form-control" id="validationCustom04"
-                                  th:field="*{email}" required
+                                 name="email" required
                             >
                     </div>
                     <div class="form-group text-center">
                         <label for="validationCustom05">Password</label>
                         <input type="password" class="form-control" id="validationCustom05"
-                               th:field="*{password}" required
+                               name="password"required
                                >
                     </div>
-                    <div class="form-group text-center" >
-                        <label for="inputState">Role</label>
-                        <select id="inputState" class="form-control">
-                            <option selected th:each="role : ${user.getRoles()}">
-                                <a th:text=" ${#strings.substringAfter(role.getRoleName(),
-                                'ROLE_')}"> Role </a>
+
+
+                    <label  for="role777">Roles</label>
+                    <select class="custom-select " name="role" id="role777" required multiple="multiple">
+                            <option selected th:each="role : ${roles} "  >
+                               <!-- <a th:text=" ${#strings.substringAfter(role.getRoleName(),
+                                'ROLE_')}"> Role </a>-->
+                                <a th:text=" ${role.getRoleName()}"  th:value="111111"> Role </a>
                             </option>
 
+                    </select>
 
 
+<!--                    <div class="invalid-feedback">-->
+<!--                        Please select a valid state.-->
+<!--                    </div>-->
+                        <button type="submit"  class="btn btn-success mt-4 ">Add new user</button>
 
-                  <!--          <a th:each="role : ${user.getRoles()}"
-                               th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
-                            > Role </a>-->
-                        </select>
-                    </div>
+             <!--       <select th:field="*{type}">
+                        <option th:each="type : ${allTypes}"
+                                th:value="${type}"
+                                th:text="#{${'seedstarter.type.' + type}}">Wireframe</option>
+                    </select>-->
                 </form>
-                    </div>
-                    <div class="col"></div>
+                        <div class="col"></div>
                 </div>
             </div>
         </div>
@@ -216,7 +214,13 @@
 
 
 
+<script>
 
+
+
+
+
+</script>
 
 
 

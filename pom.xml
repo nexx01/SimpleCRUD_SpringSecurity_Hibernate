@@ -81,6 +81,14 @@
 <!--            <scope>test</scope>-->
         </dependency>
 
+
+
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.4.0.CR1</version>
+        </dependency>
     </dependencies>
 
 
