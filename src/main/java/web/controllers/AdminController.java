@@ -37,8 +37,6 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(@AuthenticationPrincipal User authuser,
                        Model model) {
-
-
         model.addAttribute("users",  userService.getAllUsers());
         model.addAttribute("allRoles",  roleService.getAllRoles());
         model.addAttribute("authuser",authuser);

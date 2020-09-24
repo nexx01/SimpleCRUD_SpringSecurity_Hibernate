@@ -49,6 +49,8 @@ public class SetupDataLoader implements
 
         createUserIfNotFound("user@user.com", "user", true, "user", "user",
                 new ArrayList<>(Arrays.asList(userRole)));
+        createUserIfNotFound("user2@user.com", "user", true, "user2", "user",
+                new ArrayList<>(Arrays.asList(userRole)));
 
         createUserIfNotFound("admin@admin.com", "admin", true, "admin", "admin",
                 new ArrayList<>(Arrays.asList(adminRole, userRole)));

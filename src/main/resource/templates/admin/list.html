@@ -27,32 +27,6 @@
 
 </head>
 
-
-<style>
-    .row.content {
-        height: 1500px
-    }
-
-    .sidenav {
-        /* background-color: #00BFFF;*/
-        height: 100%;
-    }
-
-    .field {
-        background-color: #FFFAFA;
-    }
-
-
-    .active {
-        background-color: dodgerblue !important;
-        color: white;
-    !important;
-    . text-secondary
-    }
-
-</style>
-
-
 <body>
 
 <!--<div th:insert="~{fragment/navbar.html :: navbar}"></div>-->
@@ -121,16 +95,9 @@
                 </li>
 
             </ul>
-            <!--            <nav class="nav nav-pills flex-column flex-lg-row">-->
-            <!--            <div class="nav-row nav-tabs  ">-->
-            <!--                <button  class="nav-item ">-->
-            <!--                    <a class="nav-link   " href="/admin">User table</a>-->
-            <!--                </button>-->
-            <!--                <button  class="nav-item  ">-->
-            <!--                    <a class="nav-link   " href="/admin/addUser">User</a>-->
-            <!--                </button>-->
-            <!--&lt;!&ndash;            </nav>&ndash;&gt;-->
-            <!--            </div>-->
+
+
+
 
             <div class="container-fluid border-top border-left border-right border-grey width: 100%">
                 <label class="mt-1">Users table</label>
@@ -157,7 +124,7 @@
                         <tbody>
                         <tr th:each="user : ${users}">
                             <td><
-                            <span th:text="${user.getId()}">ID </span></td>
+                                <span th:text="${user.getId()}">ID </span></td>
                             <td><span th:text="${user.getFirstName()}">Name </span></td>
                             <td><span th:text="${user.getLastName()}"> LastName </span></td>
                             <td><span th:text="${user.getAge()}"> Age </span></td>
@@ -175,21 +142,98 @@
                                         th:data-lastname="${user.lastName}"
                                         th:data-age="${user.age}"
                                         th:data-email="${user.email}"
-                                        th:data-role="${user.roles}"
-
-
-
                                 >Edit
                                 </button>
                             </td>
                             <td>
 
-                                <a class="btn btn-danger" href="delete.html"
+
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                        th:href="@{/admin/edit(id=${user.getId()})}"
+
+                                >Delete
+                                </button>
+
+
+                                <a class="btn btn-danger" href="delete.html" data-toggle="modal" data-target="#edit-modal"
 
                                    th:href="@{/admin/delete(id=${user.getId()})}" role="button">User</a>
 
                                 <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Start MODAL WINDOW&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+                                <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                            </div>
+                                            <div class="modal-body edit-content">
+                                                <form class="needs-validation" novalidate name="data[]"
+                                                      th:action="@{/admin/editUser}" th:object="${user}" method="post">
 
+                                                    <div class="form-group text-center">
+                                                        <input type="number" class="form-control" id="user_id" name="id"
+                                                               th:min="4" readonly required>
+                                                    </div>
+
+
+                                                    <div class="form-group text-center">
+                                                        <label>First name</label>
+                                                        <input type="text" class=" form-control" id="firstNameEdit"
+                                                               name="firstName"
+                                                               th:min="4" required>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                        <label>Last name</label>
+                                                        <input type="text" class="form-control" id="lastNameEdit"
+                                                               name="lastName" required>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                        <label>Age</label>
+                                                        <input type="number" class="form-control" id="ageEdit"
+                                                               name="age" required>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                        <label>email</label>
+                                                        <label for="emailEdit">
+
+                                                        </label><input type="email"
+                                                                       class="form-control" id="emailEdit"
+                                                                       name="email" required>
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                        <label>Password</label>
+                                                        <input type="password" class="form-control" id="passwordEdit"
+                                                               name="password" required>
+                                                    </div>
+
+
+                                                    <select multiple class="selectpicker" name="role[]" id="roleEdit">
+
+                                                        <option th:text="${user.getId()}"></option>
+
+                                                    </select>
+                                                    <!--                    <div class="invalid-feedback">-->
+                                                    <!--                        Please select a valid state.-->
+                                                    <!--                    </div>-->
+                                                    <!--                                                    <button type="submit"  class="btn btn-success mt-4 ">Add new user</button>-->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">Save changes
+                                                        </button>
+                                                        <!--                                                        <button type="submit"  class="btn btn-success mt-4 ">Add new user</button>-->
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;END MODAL WINDOW&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
                             </td>
                         </tr>
@@ -199,51 +243,14 @@
                     </table>
 
 
-                    <link rel="stylesheet" href="https://snipp.ru/cdn/bootstrap/4.3/bootstrap.min.css">
-
                 </table>
             </div>
         </div>
 
-<!--        <div class="row">-->
-<!--            <div class="col-sm">-->
-<!--                <select id="select" class="form-control" name="fruct">-->
-<!--                </select>-->
-<!--            </div>-->
-<!--            <div class="col-sm">-->
-<!--                <button id="js-button" class="btn btn-outline-primary"-->
-
-<!--                        th:data-roles="${user.getRoles()}">Добавить из массива</button>-->
-<!--            </div>-->
-<!--        </div>-->
-
-
-<!--        <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>-->
-<!--        <script>-->
-<!--            $('#js-button').click(function(){-->
-<!--                $('#select').empty();-->
-
-
-<!--                var recipientRoles= button.data('roles'); // Extr-->
-<!--                $.each(recipientRoles, function(key, value) {-->
-<!--                    console.log(value)-->
-<!--                    $('#select').append('<option value="' + key + '">' + value + '</option>');-->
-<!--                });-->
-<!--            });-->
-<!--        </script>-->
-
-
-
-
-
-
-
-        <div th:insert="~{fragment/userModalForm.html :: userModalForm}"></div>
 
     </div><!--col-9-->
 </div><!--row-->
 </div><!--container-->
-
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -267,10 +274,10 @@
     var recipientLastname = button.data('lastname') // Extract info from data-* attributes
     var recipientAge = button.data('age') // Extract info from data-* attributes
     var recipientEmail = button.data('email') // Extract info from data-* attributes
-    var recipientRoles= button.data('role') // Extract info from data-* attributes
+    var recipientRoles = button.data('role') // Extract info from data-* attributes
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    var  modal = $(this)
+    var modal = $(this)
     modal.find('.modal-title').text('New message to ' + recipientFirstName)
     modal.find(' #user_id').val(recipientUserId)
     modal.find(' #firstNameEdit').val(recipientFirstName)
@@ -278,15 +285,7 @@
     modal.find(' #ageEdit').val(recipientAge)
     modal.find(' #emailEdit').val(recipientEmail)
 
-    $.each($(recipientRoles.toArray()), function(vALUE) {
-                    console.log(vALUE.getRoleName())
-                 // $('#roleEdit').append('<option >' + value.getRoleName() + '</option>')
-              });
-
-
-
 })
-
 </script>
 </body>
 </html>
