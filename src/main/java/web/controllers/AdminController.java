@@ -13,6 +13,8 @@ import web.service.RoleService;
 import web.service.UserService;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /*import javax.validation.Valid;*/
 
@@ -28,26 +30,28 @@ public class AdminController {
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
+
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public String list(@AuthenticationPrincipal User user,
-                       ModelMap model) {
-        Iterable<User> users = userService.getAllUsers();
+    public String list(@AuthenticationPrincipal User authuser,
+                       Model model) {
 
-        model.addAttribute("users", users);
-        model.addAttribute(user);
+
+        model.addAttribute("users",  userService.getAllUsers());
+        model.addAttribute("allRoles",  roleService.getAllRoles());
+        model.addAttribute("authuser",authuser);
         return "admin/list";
     }
 
     @GetMapping("/list")
-    public String list2(@AuthenticationPrincipal User user,
-                        ModelMap model) {
-        Iterable<User> users = userService.getAllUsers();
-
-        model.addAttribute("users", users);
-        model.addAttribute(user);
+    public String list2(/*@AuthenticationPrincipal User user,
+                        ModelMap model*/) {
+//        Iterable<User> users = userService.getAllUsers();
+//
+//        model.addAttribute("users", users);
+//        model.addAttribute(user);
         return "redirect:/admin";
     }
 
@@ -63,7 +67,7 @@ public class AdminController {
     @GetMapping("/addUser")
     public String addUserView(@AuthenticationPrincipal User authuser, Model model) {
         model.addAttribute("authuser", authuser);
-        model.addAttribute("user",new User());
+//        model.addAttribute("user",new User());
         Iterable<Role> roles = roleService.getAllRoles();
         model.addAttribute("roles", roles);
         return "admin/addUser";
@@ -71,19 +75,24 @@ public class AdminController {
 
     // Получение и проверка данных введеных в форму
     @PostMapping("/addUser")
-    public String addUserSubmint(@RequestParam("firstname") String firstName, BindingResult errors, Model model) {
-//        User userFromDb = userService.findByEmail(user.getEmail());
-//        if (userFromDb != null) {
-//            model.addAttribute("message", "UserExist!");
-//        }
-//
-////        if (errors.hasErrors()) {
-////            model.addAttribute("User", user);
-////            return "admin/addUser";
-////        }
-//        user.setEnabled(true);
+    public String addUserSubmint( @ModelAttribute User user,@RequestParam("role[]") String[] newUserRoles, BindingResult errors, Model model) {
+        User userFromDb = userService.findByEmail(user.getEmail());
+        if (userFromDb != null) {
+            model.addAttribute("message", "UserExist!");
+            return "admin/addUser";
+        }
+        if (errors.hasErrors()) {
+            model.addAttribute("User", user);
+            return "admin/addUser";
+        }
+        user.setEnabled(true);
+        Collection userRoles=Arrays.stream(newUserRoles)
+                .map(roleService::findByRoleName)
+                .collect(Collectors.toList());
+        user.setRoles(userRoles);
+//    new ArrayList<>(Arrays.asList(roleService.findByRoleName(newUserRoles[0])))));
 
-//        userService.saveUser(user);
+        userService.saveUser(user);
         return "redirect:/admin";
 
     }
@@ -91,22 +100,29 @@ public class AdminController {
 
     // Переход форму для редактирования
     @GetMapping("/editUser")
-    public String editUser(@RequestParam long id, Model model) {
+    public String editUser(@AuthenticationPrincipal User authuser,@RequestParam long id, Model model) {
         User user = userService.findUserbyId(id);
         if (user == null) {
             return "redirect:/admin";
         }
         model.addAttribute("user", user);
+        model.addAttribute("authuser",authuser);
         return "admin/editUser";
     }
 
     // Получение и проверка данных введеных в форму
     @PostMapping("/editUser")
-    public String editUserSubmint(/*@Valid*/ @ModelAttribute User user, BindingResult errors, Model model) {
+    public String editUserSubmint(User user,@RequestParam("role[]") String[] newUserRoles, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("user", user);
             return "admin/editUser";
         } else {
+
+
+            Collection userRoles=Arrays.stream(newUserRoles)
+                    .map(roleService::findByRoleName)
+                    .collect(Collectors.toList());
+            user.setRoles(userRoles);
             userService.saveUser(user);
             return "redirect:/admin";
         }

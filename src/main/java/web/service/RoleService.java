@@ -7,4 +7,5 @@ import web.model.User;
 
 public interface RoleService {
     Iterable<Role> getAllRoles();
+    Role findByRoleName(String roleName);
 }

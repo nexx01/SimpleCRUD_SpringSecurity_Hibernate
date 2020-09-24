@@ -13,10 +13,21 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+    <!-- Custom script as written on bootstrap page -->
 
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link th:rel="style" href="/static/style.css">
     <title>CRUD APP</title>
+
+
 </head>
+
+
 <style>
     .row.content {
         height: 1500px
@@ -51,7 +62,7 @@
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto ">
             <li class="nav-item mt-1 ">
-                <a class="font-weight-bold " th:text="${user.getEmail()}"> Email </a>
+                <a class="font-weight-bold " th:text="${authuser.getEmail()}"> Email </a>
             </li>
             <li class="nav-item mt-1">
                 <p class="ml-1" th:text="#{withRoles}">withRoles</p>
@@ -59,7 +70,7 @@
 
             <li class="nav-item mt-1 ml-1">
                 <td>
-                    <a th:each="role : ${user.getRoles()}"
+                    <a th:each="role : ${authuser.getRoles()}"
                        th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
                     > Role </a>
                 </td>
@@ -110,16 +121,16 @@
                 </li>
 
             </ul>
-<!--            <nav class="nav nav-pills flex-column flex-lg-row">-->
-<!--            <div class="nav-row nav-tabs  ">-->
-<!--                <button  class="nav-item ">-->
-<!--                    <a class="nav-link   " href="/admin">User table</a>-->
-<!--                </button>-->
-<!--                <button  class="nav-item  ">-->
-<!--                    <a class="nav-link   " href="/admin/addUser">User</a>-->
-<!--                </button>-->
-<!--&lt;!&ndash;            </nav>&ndash;&gt;-->
-<!--            </div>-->
+            <!--            <nav class="nav nav-pills flex-column flex-lg-row">-->
+            <!--            <div class="nav-row nav-tabs  ">-->
+            <!--                <button  class="nav-item ">-->
+            <!--                    <a class="nav-link   " href="/admin">User table</a>-->
+            <!--                </button>-->
+            <!--                <button  class="nav-item  ">-->
+            <!--                    <a class="nav-link   " href="/admin/addUser">User</a>-->
+            <!--                </button>-->
+            <!--&lt;!&ndash;            </nav>&ndash;&gt;-->
+            <!--            </div>-->
 
             <div class="container-fluid border-top border-left border-right border-grey width: 100%">
                 <label class="mt-1">Users table</label>
@@ -145,7 +156,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${users}">
-                            <td><span th:text="${user.getId()}">ID </span></td>
+                            <td><
+                            <span th:text="${user.getId()}">ID </span></td>
                             <td><span th:text="${user.getFirstName()}">Name </span></td>
                             <td><span th:text="${user.getLastName()}"> LastName </span></td>
                             <td><span th:text="${user.getAge()}"> Age </span></td>
@@ -157,15 +169,28 @@
                             </td>
                             <td>
 
-                                <button type="button" class="btn btn-info" href="editUser.html"
-                                        th:href="@{/admin/editUser(id=${user.getId()})}">edit
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"
+                                        th:data-id="${user.id}"
+                                        th:data-whatever="${user.firstName}"
+                                        th:data-lastname="${user.lastName}"
+                                        th:data-age="${user.age}"
+                                        th:data-email="${user.email}"
+                                        th:data-role="${user.roles}"
+
+
+
+                                >Edit
                                 </button>
-                                <!--                                    <a href="editUser.html" th:href="@{/admin/editUser(id=${user.getId()})}">edit</a>-->
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" href="delete.html"
-                                        th:href="@{/admin/delete(id=${user.getId()})}"> delete
-                                </button>
+
+                                <a class="btn btn-danger" href="delete.html"
+
+                                   th:href="@{/admin/delete(id=${user.getId()})}" role="button">User</a>
+
+                                <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Start MODAL WINDOW&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+                                <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;END MODAL WINDOW&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
                             </td>
                         </tr>
 
@@ -173,22 +198,52 @@
 
                     </table>
 
+
+                    <link rel="stylesheet" href="https://snipp.ru/cdn/bootstrap/4.3/bootstrap.min.css">
+
                 </table>
             </div>
         </div>
+
+<!--        <div class="row">-->
+<!--            <div class="col-sm">-->
+<!--                <select id="select" class="form-control" name="fruct">-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div class="col-sm">-->
+<!--                <button id="js-button" class="btn btn-outline-primary"-->
+
+<!--                        th:data-roles="${user.getRoles()}">Добавить из массива</button>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--        <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>-->
+<!--        <script>-->
+<!--            $('#js-button').click(function(){-->
+<!--                $('#select').empty();-->
+
+
+<!--                var recipientRoles= button.data('roles'); // Extr-->
+<!--                $.each(recipientRoles, function(key, value) {-->
+<!--                    console.log(value)-->
+<!--                    $('#select').append('<option value="' + key + '">' + value + '</option>');-->
+<!--                });-->
+<!--            });-->
+<!--        </script>-->
+
+
+
+
+
+
+
+        <div th:insert="~{fragment/userModalForm.html :: userModalForm}"></div>
 
     </div><!--col-9-->
 </div><!--row-->
 </div><!--container-->
 
-
-<script>
-    $('#toggleState').on('click', function () {
-        var toggleBtn = $('#toggle');
-        toggleBtn.button('toggle');
-        toggleBtn.hasClass('active') ? toggleBtn.text('Включено') : toggleBtn.text('Выключено');
-    });
-</script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -200,8 +255,39 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-</div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+<script>$('#edit-modal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var recipientUserId = button.data('id') // Extract info from data-* attributes
+    var recipientFirstName = button.data('whatever') // Extract info from data-* attributes
+    var recipientLastname = button.data('lastname') // Extract info from data-* attributes
+    var recipientAge = button.data('age') // Extract info from data-* attributes
+    var recipientEmail = button.data('email') // Extract info from data-* attributes
+    var recipientRoles= button.data('role') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var  modal = $(this)
+    modal.find('.modal-title').text('New message to ' + recipientFirstName)
+    modal.find(' #user_id').val(recipientUserId)
+    modal.find(' #firstNameEdit').val(recipientFirstName)
+    modal.find(' #lastNameEdit').val(recipientLastname)
+    modal.find(' #ageEdit').val(recipientAge)
+    modal.find(' #emailEdit').val(recipientEmail)
+
+    $.each($(recipientRoles.toArray()), function(vALUE) {
+                    console.log(vALUE.getRoleName())
+                 // $('#roleEdit').append('<option >' + value.getRoleName() + '</option>')
+              });
+
+
+
+})
+
+</script>
 </body>
 </html>
 

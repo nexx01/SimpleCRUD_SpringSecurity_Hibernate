@@ -14,13 +14,6 @@ import java.util.Set;
 @Component
 @Entity
 @Table(name = "users")
-@NamedQueries({
-        @NamedQuery(name = User.FIND_ALL, query = "select s from User s"),
-        @NamedQuery(name = User.FIND_USER_BY_ID, query =
-                "select distinct s from User s where s.id = :id"),
-        @NamedQuery(name = User.FIND_USER_BY_EMAIL, query =
-                "select distinct s from User s where s.email=:email")
-})
 
 @Getter
 @Setter
@@ -28,9 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
-    public static final String FIND_ALL = "User.findAll";
-    public static final String FIND_USER_BY_ID = "User.findByid";
-    public static final String FIND_USER_BY_EMAIL = "User.findByEmail";
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -118,5 +109,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
 
 }
