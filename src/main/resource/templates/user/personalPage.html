@@ -1,71 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:insert="~{fragment/headerBootstrapStyly.html :: styleheader}"></div>
+<div th:insert="~{fragment/fragmentsGeneralView.html.html :: styleheader}"></div>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <!--// говорим системе что нужно считывать плотность пикселей устройства
-    // и при необходимости делать шрифт крупней-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <!--// Подключаем собственно стили  bootstrap-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
-    <title>CRUD APP</title>
-    <style>
-        .row.content {
-            height: 1500px
-        }
 
-        .sidenav {
-            /* background-color: #00BFFF;*/
-            height: 100%;
-        }
-
-        .field {
-            background-color: #FFFAFA;
-        }
+    <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
 
 
-        .active {
-            background-color: dodgerblue !important;
-            color: white;
-        !important;
-        . text-secondary
-        }
-
-    </style>
+    <title>User page</title>
 
 
 </head>
+
 <body>
-
-<nav class="navbar navbar-expand-sm  navbar-dark bg-dark text-white ">
-    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto ">
-            <li class="nav-item mt-1 ">
-                <a class="font-weight-bold " th:text="${user.getEmail()}"> Email </a>
-            </li>
-            <li class="nav-item mt-1">
-                <p class="ml-1" th:text="#{withRoles}">withRoles</p>
-            </li>
-
-            <li class="nav-item mt-1">
-                <tr th:each="role : ${user.getRoles()}">
-                    <a class="ml-1" th:text="${role.getRoleName()}">RoleName </a>
-                </tr>
-
-            </li>
-        </ul>
-        <!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
-        Это гарантирует, что для выхода из системы требуется токен CSRF и что злоумышленник
-        не сможет принудительно выйти из системы ваших пользователей.-->
-        <form class="form form-link text-white-50" th:action="@{/logout}" method="post">
-            <button class="btn btn-link text-white-50" type="submit" value="Log out">logout</button>
-        </form>
-    </div>
-</nav>
+<div th:insert="~{fragment/fragmentsGeneralView.html :: navbar}"></div>
 
 
 <div class="container-fluid ">
@@ -82,22 +29,22 @@
                 </div>
             </div>
         </div>
-            <div class="col-sm-10 field ">
-                <div class="row mt-2 ml-1">
-                    <h3>User information-page</h3>
-                </div>
+        <div class="col-sm-10 field ">
+            <div class="row mt-2 ml-1">
+                <h3>User information-page</h3>
+            </div>
 
 
-                <div class="container-fluid border-top border-left border-right border-grey width: 100%">
-                    <label>About user</label>
-                </div>
+            <div class="container-fluid border-top border-left border-right border-grey width: 100%">
+                <label>About user</label>
+            </div>
 
 
-                <div class="container-fluid border border-grey bg-white">
-                    <table class="table table-light">
-                        <table class="table table-striped ">
-                            <thead>
-                            <tr>
+            <div class="container-fluid border border-grey bg-white">
+                <table class="table table-light">
+                    <table class="table table-striped ">
+                        <thead>
+                        <tr>
                             <th th:text="id">ID</th>
                             <th th:text="#{user.firstName}">First Name</th>
                             <th th:text="#{user.lastName}">Last Name</th>
@@ -105,86 +52,35 @@
                             <th th:text="#{user.email}"> E-mail</th>
                             <th th:text="#{user.role}"> Role</th>
 
-                            </tr>
-<!--                            ${#strings.substring(name,3,5)}-->
-<!--                            ${#strings.substringAfter(name,prefix)}-->
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><span th:text="${user.getId()}">ID </span></td>
-                                <td><span th:text="${user.getFirstName()}">Name </span></td>
-                                <td><span th:text="${user.getLastName()}"> LastName </span></td>
-                                <td><span th:text="${user.getAge()}"> Age </span></td>
-                                <td><span th:text="${user.getEmail()}"> Email </span></td>
-                                <td>
-                                    <a th:each="role : ${user.getRoles()}"
-                                            th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
-                                    > Role </a>
-                                </td>
-                            </tr>
-                            </tbody>
+                        </tr>
+                        </thead>
 
-                        </table>
+
+                        <tbody>
+
+                        <tr>
+                            <td><span th:text="${user.getId()}">ID </span></td>
+                            <td><span th:text="${user.getFirstName()}">Name </span></td>
+                            <td><span th:text="${user.getLastName()}"> LastName </span></td>
+                            <td><span th:text="${user.getAge()}"> Age </span></td>
+                            <td><span th:text="${user.getEmail()}"> Email </span></td>
+                            <td>
+                                <a th:each="role : ${user.getRoles()}"
+                                   th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
+                                > Role </a>
+                            </td>
+                        </tr>
+                        </tbody>
 
                     </table>
-                </div>
 
-
-
-
-
-
+                </table>
+            </div>
         </div>
     </div>
 </div>
-<!--</div>&lt;!&ndash;row&ndash;&gt;-->
-<!--</div>&lt;!&ndash;container&ndash;&gt;-->
+
+<div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
 </body>
 </html>
 
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-<!--</div>-->
-
-
-<!--
-<h1 style="text-align: center; color: black">
-    <span th:text="#{user.personalPage}"></span>
-</h1>
-
-<table th:align="center" border="1" style="width: 300px">
-    <tbody>
-    <tr>
-        <td th:text="ID">ID</td>
-        <td><span th:text="${user.getId()}">ID </span></td>
-    </tr>
-    <tr>
-        <td th:text="#{user.firstName}">Name</td>
-        <td><span th:text="${user.getFirstName()}">Name </span></td>
-    </tr>
-    <tr>
-        <td th:text="#{user.lastName}">Last Name</td>
-        <td><span th:text="${user.getLastName()}"> LastName </span></td>
-    </tr>
-    <tr>
-        <td th:text="#{user.age}">Age</td>
-        <td><span th:text="${user.getAge()}"> Age </span></td>
-    </tr>
-    <tr>
-        <td th:text="#{user.email}">Login</td>
-        <td><span th:text="${user.getEmail()}">Email </span></td>
-    </tr>
-    <tr>
-        <td th:text="#{user.password}">E-mail</td>
-        <td><span th:text="${user.getPassword()}"> Password </span></td>
-    </tr>
-    </tbody>
-</table>-->

@@ -1,56 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:insert="~{fragment/headerBootstrapStyly.html :: styleheader}"></div>
+<div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <!--// говорим системе что нужно считывать плотность пикселей устройства
-    // и при необходимости делать шрифт крупней-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <!--// Подключаем собственно стили  bootstrap-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
-    <!-- Custom script as written on bootstrap page -->
+    <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-    <link th:rel="style" href="/static/style.css">
-    <title>CRUD APP</title>
+
+
+    <title>Users table</title>
 
 
 </head>
 
 <body>
+<!--Навигационная верхняя панель-->
+<div th:insert="~{fragment/fragmentsGeneralView.html :: navbar}"></div>
 
-<!--<div th:insert="~{fragment/navbar.html :: navbar}"></div>-->
-<nav class="navbar navbar-expand-sm  navbar-dark bg-dark text-white ">
 
 
-    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto ">
-            <li class="nav-item mt-1 ">
-                <a class="font-weight-bold " th:text="${authuser.getEmail()}"> Email </a>
-            </li>
-            <li class="nav-item mt-1">
-                <p class="ml-1" th:text="#{withRoles}">withRoles</p>
-            </li>
-
-            <li class="nav-item mt-1 ml-1">
-                <td>
-                    <a th:each="role : ${authuser.getRoles()}"
-                       th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
-                    > Role </a>
-                </td>
-
-            </li>
-        </ul>
 
 
         <!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
@@ -67,7 +34,7 @@
     <div class="row content">
         <div class="col-lg-2 bg-light field ">
 
-
+            <!--Кнопки перехода на персональную страницу и админскую-->
             <div class="row">
                 <div class="nav-col  btn-group-vertical btn-group-toggle btn-block">
                     <button type="button" class="nav-item btn btn-white-50 active">
@@ -80,7 +47,7 @@
             </div>
         </div>
 
-        <!--Table-->
+
         <div class="col-sm-10 field ">
             <div class="row mt-2 ml-1">
                 <h3>Admin panel </h3>
@@ -88,15 +55,13 @@
 
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/admin">Active</a>
+                    <a class="nav-link active" href="/admin">Users table</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/addUser">Link</a>
+                    <a class="nav-link" href="/admin/addUser">New user</a>
                 </li>
 
             </ul>
-
-
 
 
             <div class="container-fluid border-top border-left border-right border-grey width: 100%">
@@ -104,6 +69,7 @@
             </div>
 
 
+            <!--Таблица Юзеров-->
             <div class="container-fluid border border-grey bg-white">
                 <table class="table table-light">
                     <table class="table table-striped ">
@@ -123,7 +89,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${users}">
-                            <td><
+                            <td>
                                 <span th:text="${user.getId()}">ID </span></td>
                             <td><span th:text="${user.getFirstName()}">Name </span></td>
                             <td><span th:text="${user.getLastName()}"> LastName </span></td>
@@ -135,7 +101,7 @@
                                 > Role </a>
                             </td>
                             <td>
-
+                                <!--Кнопка редактирования-->
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"
                                         th:data-id="${user.id}"
                                         th:data-whatever="${user.firstName}"
@@ -146,97 +112,24 @@
                                 </button>
                             </td>
                             <td>
-
-
-                                <button type="button" class="btn btn-info" data-toggle="modal"
-                                        th:href="@{/admin/edit(id=${user.getId()})}"
-
-                                >Delete
-                                </button>
-
-
-                                <a class="btn btn-danger" href="delete.html" data-toggle="modal" data-target="#edit-modal"
-
-                                   th:href="@{/admin/delete(id=${user.getId()})}" role="button">User</a>
-
-                                <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Start MODAL WINDOW&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-                                <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog"
-                                     aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">
-                                                </button>
-                                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                                            </div>
-                                            <div class="modal-body edit-content">
-                                                <form class="needs-validation" novalidate name="data[]"
-                                                      th:action="@{/admin/editUser}" th:object="${user}" method="post">
-
-                                                    <div class="form-group text-center">
-                                                        <input type="number" class="form-control" id="user_id" name="id"
-                                                               th:min="4" readonly required>
-                                                    </div>
-
-
-                                                    <div class="form-group text-center">
-                                                        <label>First name</label>
-                                                        <input type="text" class=" form-control" id="firstNameEdit"
-                                                               name="firstName"
-                                                               th:min="4" required>
-                                                    </div>
-                                                    <div class="form-group text-center">
-                                                        <label>Last name</label>
-                                                        <input type="text" class="form-control" id="lastNameEdit"
-                                                               name="lastName" required>
-                                                    </div>
-                                                    <div class="form-group text-center">
-                                                        <label>Age</label>
-                                                        <input type="number" class="form-control" id="ageEdit"
-                                                               name="age" required>
-                                                    </div>
-                                                    <div class="form-group text-center">
-                                                        <label>email</label>
-                                                        <label for="emailEdit">
-
-                                                        </label><input type="email"
-                                                                       class="form-control" id="emailEdit"
-                                                                       name="email" required>
-                                                    </div>
-                                                    <div class="form-group text-center">
-                                                        <label>Password</label>
-                                                        <input type="password" class="form-control" id="passwordEdit"
-                                                               name="password" required>
-                                                    </div>
-
-
-                                                    <select multiple class="selectpicker" name="role[]" id="roleEdit">
-
-                                                        <option th:text="${user.getId()}"></option>
-
-                                                    </select>
-                                                    <!--                    <div class="invalid-feedback">-->
-                                                    <!--                        Please select a valid state.-->
-                                                    <!--                    </div>-->
-                                                    <!--                                                    <button type="submit"  class="btn btn-success mt-4 ">Add new user</button>-->
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary">Save changes
-                                                        </button>
-                                                        <!--                                                        <button type="submit"  class="btn btn-success mt-4 ">Add new user</button>-->
-                                                    </div>
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;END MODAL WINDOW&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+                                <!--Кнопка удаления-->
+                                <a class="btn btn-danger" href="delete.html" data-toggle="modal" data-target="#delete-modal"
+                                   th:data-id="${user.id}"
+                                   th:data-whatever="${user.firstName}"
+                                   th:data-lastname="${user.lastName}"
+                                   th:data-age="${user.age}"
+                                   th:data-email="${user.email}"
+                                   role="button">Delete</a>
                             </td>
                         </tr>
+
+
+
+
+<!--                        Окно редактирования-->
+                        <div th:insert="~{fragment/editModal.html :: editModalForm}"></div>
+                        <!--                        Окно удаления-->
+                        <div th:insert="~{fragment/deleteModal.html :: deleteModalForm}"></div>
 
                         </tbody>
 
@@ -248,26 +141,20 @@
         </div>
 
 
+
+
     </div><!--col-9-->
 </div><!--row-->
 </div><!--container-->
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+
+<div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<!--скрипты для заполнения модального окна-->
 
-
-<script>$('#edit-modal').on('show.bs.modal', function (event) {
+<script >$('.modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var recipientUserId = button.data('id') // Extract info from data-* attributes
     var recipientFirstName = button.data('whatever') // Extract info from data-* attributes
@@ -286,7 +173,11 @@
     modal.find(' #emailEdit').val(recipientEmail)
 
 })
+
 </script>
+
+
+
 </body>
 </html>
 
