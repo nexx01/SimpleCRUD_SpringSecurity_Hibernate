@@ -12,8 +12,8 @@ public class UserController {
 
     // Получаем Авторизованного Юзера и передаем в Модель
     @RequestMapping(method = RequestMethod.GET)
-    public String index(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute(user);
+    public String index(@AuthenticationPrincipal User authuser, Model model) {
+        model.addAttribute("authuser",authuser);
         return "user/personalPage";
     }
 }

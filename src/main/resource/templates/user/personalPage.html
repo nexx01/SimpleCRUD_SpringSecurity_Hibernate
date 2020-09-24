@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:insert="~{fragment/fragmentsGeneralView.html.html :: styleheader}"></div>
+<div th:insert="~{fragment/fragmentsGeneralView.html:: styleheader}"></div>
 <head>
 
     <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
@@ -59,13 +59,13 @@
                         <tbody>
 
                         <tr>
-                            <td><span th:text="${user.getId()}">ID </span></td>
-                            <td><span th:text="${user.getFirstName()}">Name </span></td>
-                            <td><span th:text="${user.getLastName()}"> LastName </span></td>
-                            <td><span th:text="${user.getAge()}"> Age </span></td>
-                            <td><span th:text="${user.getEmail()}"> Email </span></td>
+                            <td><span th:text="${authuser.getId()}">ID </span></td>
+                            <td><span th:text="${authuser.getFirstName()}">Name </span></td>
+                            <td><span th:text="${authuser.getLastName()}"> LastName </span></td>
+                            <td><span th:text="${authuser.getAge()}"> Age </span></td>
+                            <td><span th:text="${authuser.getEmail()}"> Email </span></td>
                             <td>
-                                <a th:each="role : ${user.getRoles()}"
+                                <a th:each="role : ${authuser.getRoles()}"
                                    th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
                                 > Role </a>
                             </td>
