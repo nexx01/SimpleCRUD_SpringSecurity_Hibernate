@@ -1,6 +1,7 @@
 package web.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,6 +40,7 @@ public class User implements UserDetails {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
+    @JsonIgnore //Чтобы не было зацикливания при получении JSON
     //@ManyToMany(/*fetch = FetchType.LAZY,*/fetch = FetchType.EAGER, mappedBy = "userAuthority")
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "users_roles",

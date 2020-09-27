@@ -72,7 +72,7 @@ public class AdminController {
             model.addAttribute("User", user);
             return "admin/addUser";
         }
-        user..setEnabled(true);
+        user.setEnabled(true);
 
 
         //Назначаем юзеру роли

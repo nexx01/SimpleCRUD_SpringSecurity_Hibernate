@@ -65,8 +65,7 @@
                     <div class="col">
 
 
-                        <form class="needs-validation" novalidate name="data[]"
-                              th:action="@{/admin/addUser}" method="post">
+                        <form class="needs-validation" id="newUserForm">
                             <div class="form-group text-center">
                                 <label for="validationCustom01">First name</label>
                                 <input type="text" class="form-control" id="validationCustom01"
@@ -110,7 +109,7 @@
 
                             <div class="form-row text-center">
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-success mt-4 ">Add new user</button>
+                                    <button type="submit" class="btn btn-success mt-4 " id="formElem">Add new user</button>
                                 </div>
                             </div>
 
@@ -132,6 +131,6 @@
 
 <div th:insert="~{fragment/fragmentsGeneralView.html:: stylefooter}"></div>
 
-
+<script  src="/static/js/FetchForm.js"></script>
 </body>
 </html>

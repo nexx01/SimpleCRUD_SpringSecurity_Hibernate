@@ -102,14 +102,7 @@
                             </td>
                             <td>
                                 <!--Кнопка редактирования-->
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"
-                                        th:data-id="${user.id}"
-                                        th:data-whatever="${user.firstName}"
-                                        th:data-lastname="${user.lastName}"
-                                        th:data-age="${user.age}"
-                                        th:data-email="${user.email}"
-                                >Edit
-                                </button>
+                                <a th:href="@{/admin/users/${users.id}}" class="btn btn-info" >Edit</a>
                             </td>
                             <td>
                                 <!--Кнопка удаления-->
@@ -154,10 +147,28 @@
 
 <!--скрипты для заполнения модального окна-->
 
-<script src="/static/js/fillModalWindow.js">
+<!--<script src="/static/js/fillModalWindow.js">-->
+<!--</script>-->
+<!--<script     src="/static/js/fetch.js">-->
+<!--</script>-->
+<script>
+
+    $('document').ready(function(){
+        $('.table .btn').on('click',function(event){
+
+            event.preventDefault();
+            $('#edit-modal').modal();
+
+            var href =$(this).attr('href');
+
+            $.get(href,function (user, status){
+                $('#idEdit').val(user.id);
+            })
+
+
+        });
+    });
 </script>
-
-
 
 </body>
 </html>
