@@ -1,5 +1,5 @@
 
-const requestUrl = ' http://localhost:8088/admin/users'
+const requestUrl = ' http://localhost:8088/admin/users/7'
 
 
 
