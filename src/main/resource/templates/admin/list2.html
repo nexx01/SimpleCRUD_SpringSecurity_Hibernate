@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
+<head>
+
+    <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
+
+
+
+    <title>Users table</title>
+
+
+</head>
+
+<body>
+<!--Навигационная верхняя панель-->
+<div th:insert="~{fragment/fragmentsGeneralView.html :: navbar}"></div>
+
+
+
+
+
+<!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
+Это гарантирует, что для выхода из системы требуется токен CSRF и что злоумышленник
+не сможет принудительно выйти из системы ваших пользователей.-->
+<form class="form form-link text-white-50" th:action="@{/logout}" method="post">
+    <button class="btn btn-link text-white-50" type="submit" value="Log out">logout</button>
+</form>
+</div>
+</nav>
+
+
+<div class="container-fluid ">
+    <div class="row content">
+        <div class="col-lg-2 bg-light field ">
+
+            <!--Кнопки перехода на персональную страницу и админскую-->
+            <div class="row">
+                <div class="nav-col  btn-group-vertical btn-group-toggle btn-block">
+                    <button type="button" class="nav-item btn btn-white-50 active">
+                        <a class="nav-link active nav-fill" href="/admin">Admin</a>
+                    </button>
+                    <button type="button" class="nav-item btn btn-white-50 ">
+                        <a class="nav-link  nav-fill " href="/user">User</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-10 field ">
+            <div class="row mt-2 ml-1">
+                <h3>Admin panel </h3>
+            </div>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/addUser">New user</a>
+                </li>
+
+            </ul>
+
+
+            <div class="container-fluid border-top border-left border-right border-grey width: 100%">
+                <label class="mt-1">Users table</label>
+            </div>
+
+
+            <!--Таблица Юзеров-->
+            <div class="container-fluid border border-grey bg-white">
+                <table class="table table-light">
+                    <table class="table table-striped ">
+                        <thead>
+
+                        <th th:text="id">ID</th>
+                        <th th:text="#{user.firstName}">First Name</th>
+                        <th th:text="#{user.lastName}">Last Name</th>
+                        <th th:text="#{user.age}">Age</th>
+                        <th th:text="#{user.email}"> E-mail</th>
+                        <th th:text="#{user.password}"> Password</th>
+                        <th th:text="#{user.edit}">Edit</th>
+                        <th th:text="#{user.delete}">Delete</th>
+
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td>
+                                <span th:text="${user.getId()}">ID </span></td>
+                            <td><span th:text="${user.getFirstName()}">Name </span></td>
+                            <td><span th:text="${user.getLastName()}"> LastName </span></td>
+                            <td><span th:text="${user.getAge()}"> Age </span></td>
+                            <td><span th:text="${user.getEmail()}"> Email </span></td>
+                            <td>
+                                <a th:each="role : ${user.getRoles()}"
+                                   th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
+                                > Role </a>
+                            </td>
+                            <td>
+                                <!--Кнопка редактирования-->
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"
+
+                                >Edit
+                                </button>
+                            </td>
+                            <td>
+                                <!--Кнопка удаления-->
+                                <a class="btn btn-danger" href="delete.html" data-toggle="modal" data-target="#delete-modal"
+                                   th:data-id="${user.id}"
+                                   th:data-whatever="${user.firstName}"
+                                   th:data-lastname="${user.lastName}"
+                                   th:data-age="${user.age}"
+                                   th:data-email="${user.email}"
+                                   role="button">Delete</a>
+                            </td>
+                        </tr>
+
+
+
+
+                        <!--                        Окно редактирования-->
+                        <div th:insert="~{fragment/editModal.html :: editModalForm}"></div>
+                        <!--                        Окно удаления-->
+                        <div th:insert="~{fragment/deleteModal.html :: deleteModalForm}"></div>
+
+                        </tbody>
+
+                    </table>
+
+
+                </table>
+            </div>
+        </div>
+
+
+
+
+    </div><!--col-9-->
+</div><!--row-->
+</div><!--container-->
+
+
+
+<div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
+
+
+<!--скрипты для заполнения модального окна-->
+
+<script src="/static/js/fillModalWindow.js"></script>
+<script src="/static/js/fillTableJQueryWithModal.js"></script>
+
+
+
+</body>
+</html>
+
+

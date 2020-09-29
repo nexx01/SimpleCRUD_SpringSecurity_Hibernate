@@ -18,7 +18,79 @@
 <!--Навигационная верхняя панель-->
 <div th:insert="~{fragment/fragmentsGeneralView.html :: navbar}"></div>
 
+<div th:insert="~{fragment/editModal.html :: editModalForm}"></div>
 
+<div id="edit-modal2" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+            </div>
+            <div class="modal-body edit-content">
+                <form class="needs-validation" novalidate name="data[]"
+                      method="post">
+
+                    <div class="form-group text-center">
+                        <input type="number" class="form-control" id="idEdit" name="idEdit"
+                               th:min="4" readonly required>
+                    </div>
+
+                    <button type= "button" class= "btn btn-outline-primary" onclick= "exampleOnclick (this)">>Taco Tommy< /button>><br />
+                        <button type= "button" class= "btn btn-outline-primary" onclick= "exampleOnclick (this)"> >Бобби Буррито< /button>
+
+                    <div class="form-group text-center">
+                        <label>First name</label>
+                        <input type="text" class=" form-control" id="firstNameEdit"
+                               name="firstName"
+                               th:min="4" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <label>Last name</label>
+                        <input type="text" class="form-control" id="lastNameEdit"
+                               name="lastName" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <label>Age</label>
+                        <input type="number" class="form-control" id="ageEdit"
+                               name="age" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <label>email</label>
+                        <label for="emailEdit">
+
+                        </label><input type="email"
+                                       class="form-control" id="emailEdit"
+                                       name="email" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="passwordEdit"
+                               name="password" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <select multiple class="custom-select" name="role[]" size="3">
+                            <option th:each="role:${allRoles}"
+                                    th:text="${role.getRoleName()}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 <!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
 Это гарантирует, что для выхода из системы требуется токен CSRF и что злоумышленник
 не сможет принудительно выйти из системы ваших пользователей.-->
@@ -63,7 +135,7 @@
                     <a class="nav-link" href="/admin/addUser">New user</a>
                 </li>
             </ul>
-            <td><a type="button" class="btn btn-info btn-primary label"  value="edit" data-id="' + user.id + '" id="btnEditUser">Edit</a></td>
+            <td><a type="button" class="btn btn-info "  id="btnEditUser">Edit</a></td>
 
             <div class="container-fluid border-top border-left border-right border-grey width: 100%">
                 <label class="mt-1">Users table</label>
@@ -74,6 +146,7 @@
             <div class="container-fluid border border-grey bg-white">
                 <table class="table table-light">
                     <table class="table table-striped ">
+
                         <thead>
 
                         <th th:text="id">ID</th>
@@ -95,6 +168,7 @@
                         </tr>
 
                         </tbody>
+
                     </table>
 
 
@@ -108,17 +182,32 @@
 </div><!--container-->
 
 
-<div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
+<!-- Button to trigger modal -->
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
 
-
-
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Modal header</h3>
+    </div>
+    <div class="modal-body">
+        <p>One fine body…</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary">>Save changes</button>
+    </div>
+</div>
 
 <!--скрипты для заполнения модального окна-->
 
 <!--<script src="/static/js/fillModalWindow.js"></script>-->
+<div th:insert="~{fragment/fragmentsGeneralView.html:: stylefooter}"></div>
+<!--<script src="/static/js/callFillModalRequestServer.js"></script>-->
+<!--<script src="/static/js/fillTableJQueryWithModal.js"></script>-->
+<script src="/static/js/testdynamicmodal.js"></script>
 
-<script src="/static/js/fillTableJQueryWithModal.js"></script>
-<script src="/static/js/callFillModalRequestServer.js"></script>
 
 
 
