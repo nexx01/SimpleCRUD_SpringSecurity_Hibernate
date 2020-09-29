@@ -26,54 +26,52 @@ $(document).ready(function () {
                     "<td>" + user.email + "</td>" +
                     "<td type='password'>" + user.password + "</td>" +
                     "<td>" + getRolesUserString(user) + "</td>" +
-                    '<td><button type="button" class="btn btn-info" value="edit" data-id="' + user.id + '">Edit</button></td>' +
-                    '<td>   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal">Edit\n' +
-                    '                                </button></td>' +
-                    '<td><div th:unless="${#authentication.getName() == ' + user.email + '"><button type="button" class="btn btn-danger " data-toggle="modal" data-target="#deleteModal" value="delete" data-id="' + user.id + '">Delete</button></div></td></tr>'
+                    '<td><button type="button" class="btn btn-info" id="btnEditUser" value="edit" data-id="' + user.id + '">Edit</button></td>' +
+                    '<td><div th:unless="${#authentication.getName() == ' + user.email + '"><button type="button" class="btn btn-danger " data-toggle="modal" data-target="#deleteModal" value="delete" data-id="' + user.id + '">Delete</button></div></td>'
                     + "</tr>");
             });
         })
         .catch(err => console.log(err))
 
+});
 
-    let getValueWithoutNull = function (val) {
-        if (val) {
-            return val
-        } else {
-            return ""
-        }
+
+let getValueWithoutNull = function (val) {
+    if (val) {
+        return val
+    } else {
+        return ""
     }
+}
 
-    let getRolesUserString = function (user) {
-        let rolesUser = '';
-        user.roles.forEach(function (role) {
-            let roleName = role.roleName
-            rolesUser = rolesUser + roleName.substring(5, roleName.length) + ', '
-        });
-        return rolesUser.substring(0, rolesUser.length - 2)
-    }
-
-
-    /*Работайте, по возможности, с всплывающим событием.
-     Так вы застрахуетесь от проблем при динамическом добавлении элементов
-    *Если кнопки созданы не динамически(без javascript),
-     ищутся все элементы по селектору в момент выполнения инструкции,
-     а затем им устанавливается слушатель на событие.
-     Всё, что добавлено после этого, не имеет такого слушателя.
-    * */
-    $(document).on('click', '.btn', function (event) {
-        console.log($(this)); // это и есть наш элемент с классом butt
-        $('[name = "editModal"]').modal('show');
-
-        $('#edit-modal').modal();
-
-
-        $('.modal').modal();
-
+let getRolesUserString = function (user) {
+    let rolesUser = '';
+    user.roles.forEach(function (role) {
+        let roleName = role.roleName
+        rolesUser = rolesUser + roleName.substring(5, roleName.length) + ', '
     });
+    return rolesUser.substring(0, rolesUser.length - 2)
+}
 
 
+/*Работайте, по возможности, с всплывающим событием.
+ Так вы застрахуетесь от проблем при динамическом добавлении элементов
+*Если кнопки созданы не динамически(без javascript),
+ ищутся все элементы по селектору в момент выполнения инструкции,
+ а затем им устанавливается слушатель на событие.
+ Всё, что добавлено после этого, не имеет такого слушателя.
+* */
+$(document).on('click', '#btnEditUser', function (event) {
+    console.log($(this)); // это и есть наш элемент с классом butt
+    // $('[name = "editModal"]').modal('show');
+    //
+    $('#edit-modal').modal();
+
+
+    // $('.modal').modal(); //открываем все классы модаль
 
 });
+
+
 
 
