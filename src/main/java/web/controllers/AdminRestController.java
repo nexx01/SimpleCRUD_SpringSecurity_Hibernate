@@ -29,7 +29,7 @@ public class AdminRestController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<Iterable<User>> getAllUsers() {
         final List<User> users = (List<User>) userService.getAllUsers();
 
         return users != null && !users.isEmpty()
