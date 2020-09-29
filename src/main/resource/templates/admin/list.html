@@ -5,6 +5,8 @@
 
     <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
 
 
     <title>Users table</title>
@@ -17,16 +19,13 @@
 <div th:insert="~{fragment/fragmentsGeneralView.html :: navbar}"></div>
 
 
-
-
-
-        <!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
-        Это гарантирует, что для выхода из системы требуется токен CSRF и что злоумышленник
-        не сможет принудительно выйти из системы ваших пользователей.-->
-        <form class="form form-link text-white-50" th:action="@{/logout}" method="post">
-            <button class="btn btn-link text-white-50" type="submit" value="Log out">logout</button>
-        </form>
-    </div>
+<!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
+Это гарантирует, что для выхода из системы требуется токен CSRF и что злоумышленник
+не сможет принудительно выйти из системы ваших пользователей.-->
+<form class="form form-link text-white-50" th:action="@{/logout}" method="post">
+    <button class="btn btn-link text-white-50" type="submit" value="Log out">logout</button>
+</form>
+</div>
 </nav>
 
 
@@ -53,6 +52,9 @@
                 <h3>Admin panel </h3>
             </div>
 
+
+
+
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" href="/admin">Users table</a>
@@ -60,9 +62,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/addUser">New user</a>
                 </li>
-
             </ul>
-
+            <td><a type="button" class="btn btn-info btn-primary label"  value="edit" data-id="' + user.id + '" id="btnEditUser">Edit</a></td>
 
             <div class="container-fluid border-top border-left border-right border-grey width: 100%">
                 <label class="mt-1">Users table</label>
@@ -81,51 +82,19 @@
                         <th th:text="#{user.age}">Age</th>
                         <th th:text="#{user.email}"> E-mail</th>
                         <th th:text="#{user.password}"> Password</th>
+                        <th th:text="#{user.role}"> Password</th>
                         <th th:text="#{user.edit}">Edit</th>
                         <th th:text="#{user.delete}">Delete</th>
 
                         </tr>
 
                         </thead>
-                        <tbody>
-                        <tr th:each="user : ${users}" th:object="${user}">
-                            <td>
-                                <span th:text="${user.getId()}">ID </span></td>
-                            <td><span th:text="${user.getFirstName()}">Name </span></td>
-                            <td><span th:text="${user.getLastName()}"> LastName </span></td>
-                            <td><span th:text="${user.getAge()}"> Age </span></td>
-                            <td><span th:text="${user.getEmail()}"> Email </span></td>
-                            <td>
-                                <a th:each="role : ${user.getRoles()}"
-                                   th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
-                                > Role </a>
-                            </td>
-                            <td>
-                                <!--Кнопка редактирования-->
-                                <a th:href="@{http://localhost:8088/admin/users/7}" class="btn btn-info" >Edit</a>
-                            </td>
-                            <td>
-                                <!--Кнопка удаления-->
-                                <a class="btn btn-danger" href="delete.html" data-toggle="modal" data-target="#delete-modal"
-                                   th:data-id="${user.id}"
-                                   th:data-whatever="${user.firstName}"
-                                   th:data-lastname="${user.lastName}"
-                                   th:data-age="${user.age}"
-                                   th:data-email="${user.email}"
-                                   role="button">Delete</a>
-                            </td>
+                        <tbody id="tData">
+                        <tr>
+
                         </tr>
 
-
-
-
-<!--                        Окно редактирования-->
-                        <div th:insert="~{fragment/editModal.html :: editModalForm}"></div>
-                        <!--                        Окно удаления-->
-<!--                        <div th:insert="~{fragment/deleteModal.html :: deleteModalForm}"></div>-->
-
                         </tbody>
-
                     </table>
 
 
@@ -134,22 +103,23 @@
         </div>
 
 
-
-
     </div><!--col-9-->
 </div><!--row-->
 </div><!--container-->
 
 
-
 <div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
+
+
 
 
 <!--скрипты для заполнения модального окна-->
 
 <!--<script src="/static/js/fillModalWindow.js"></script>-->
 
-<script     src="/static/js/fillTableJqury.js"></script>
+<script src="/static/js/fillTableJQueryWithModal.js"></script>
+<script src="/static/js/callFillModalRequestServer.js"></script>
+
 
 
 

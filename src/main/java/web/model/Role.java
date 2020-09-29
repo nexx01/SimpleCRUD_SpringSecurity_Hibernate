@@ -1,6 +1,7 @@
 package web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -11,9 +12,13 @@ import java.util.Set;
 
 // Этот класс реализует интерфейс GrantedAuthority, в котором необходимо переопределить только один метод getAuthority() (возвращает имя роли).
 // Имя роли должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER.
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @Component
+
 @Entity
 @Table(name = "roles")
+
 @Getter
 @Setter
 @AllArgsConstructor
