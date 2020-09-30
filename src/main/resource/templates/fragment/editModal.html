@@ -55,13 +55,10 @@
                             <input type="password" class="form-control" id="passwordEdit"
                                    name="password" required>
                         </div>
-                        <div class="form-group text-center">
-                            <select multiple class="custom-select" name="role[]" size="3">
-                                <option th:each="role:${allRoles}"
-                                        th:text="${role.getRoleName()}">
-                                </option>
-                            </select>
+                        <div class="form-group text-center" >
+                            <select  class="select" id="selectInModal" multiple></select>
                         </div>
+<!--                        =---------------------------------->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default"
                                     data-dismiss="modal">Close
