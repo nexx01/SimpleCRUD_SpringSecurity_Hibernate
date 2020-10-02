@@ -34,11 +34,11 @@
             <!--Кнопки перехода на персональную страницу и админскую-->
             <div class="row">
                 <div class="nav-col  btn-group-vertical btn-group-toggle btn-block">
-                    <button type="button" class="nav-item btn btn-white-50 active">
+                    <button type="button" class="nav-item btn btn-white-50 active" id="btnAdminPage">
                         <a class="nav-link active nav-fill" href="/admin">Admin</a>
                     </button>
                     <button type="button" class="nav-item btn btn-white-50 ">
-                        <a class="nav-link  nav-fill " href="/user">User</a>
+                        <a class="nav-link  nav-fill " id="btnUserPage">User</a>
                     </button>
                 </div>
             </div>
@@ -52,7 +52,7 @@
 
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/admin">Users table</a>
+                    <a class="nav-link active">Users table</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"  id="btnMainPage" th:value="newUser">New user</a>
@@ -69,26 +69,9 @@
             <div class="container-fluid border border-grey bg-white">
                 <table  class="table table-light" >
                     <table id="tData" class="table table-striped" >
-                        <thead>
 
-                        <th th:text="id">ID</th>
-                        <th th:text="#{user.firstName}">First Name</th>
-                        <th th:text="#{user.lastName}">Last Name</th>
-                        <th th:text="#{user.age}">Age</th>
-                        <th th:text="#{user.email}"> E-mail</th>
-                        <th th:text="#{user.password}"> Password</th>
-                        <th th:text="#{user.role}"> Roles</th>
-                        <th th:text="#{user.edit}">Edit</th>
-                        <th th:text="#{user.delete}">Delete</th>
 
-                        </tr>
-
-                        </thead>
-                        <tbody>
-                        </tbody>
                     </table>
-
-
                 </table>
             </div>
         </div>
@@ -105,8 +88,9 @@
 
 <script     src="/static/js/util/sendFetchRequest.js"></script>
 <script     src="/static/js/main.js"></script>
-<script     src="/static/js/fillModal.js"></script>
 <script     src="/static/js/submitModalUser.js"></script>
+<script     src="/static/js/fillModal.js"></script>
+<script     src="/static/js/userPage.js"></script>
 
 
 </body>

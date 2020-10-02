@@ -1,6 +1,4 @@
 
-
-
 $('#formEditUser').submit(function () {
     let valueButton = $('#btnModalUser').val()
     let idUser = $('#idEdit').val();
@@ -19,6 +17,11 @@ $('#formEditUser').submit(function () {
             alert("Что то пошло не так!")
     }
 });
+
+
+
+
+
 
 
 let deleteUser = function (idUser) {

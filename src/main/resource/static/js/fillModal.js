@@ -19,11 +19,13 @@ $(document).on('click', '#btnMainPage', function (event) {
             fillModalData()
             setPropertiesButtonNewUser();
             break;
+
         default:
             alert("Что то пошло не так!")
     }
     $('#modalUser').modal();
 })
+
 
 
 

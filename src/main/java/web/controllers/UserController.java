@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 
-//@Controller
-//@RequestMapping("/user")
+@Controller
+@RequestMapping("/user")
 public class UserController {
 
     // Получаем Авторизованного Юзера и передаем в Модель

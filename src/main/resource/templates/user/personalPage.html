@@ -17,16 +17,8 @@
 
 <div class="container-fluid ">
     <div class="row content">
-        <div class="col-lg-2 bg-light field ">
-            <div class="row">
-                <div class="nav-col  btn-group-vertical btn-group-toggle btn-block">
-                    <button type="button" class="nav-item btn btn-white-50 ">
-                        <a class="nav-link  nav-fill " href="/admin">Admin</a>
-                    </button>
-                    <button type="button" class="nav-item btn btn-white-50 active ">
-                        <a class="nav-link  nav-fill " href="/admin/addUser">User</a>
-                    </button>
-                </div>
+        <div class="col-lg-2 bg-light field " id="leftNavBar">
+
             </div>
         </div>
         <div class="col-sm-10 field ">
@@ -42,35 +34,7 @@
 
             <div class="container-fluid border border-grey bg-white">
                 <table class="table table-light">
-                    <table class="table table-striped ">
-                        <thead>
-                        <tr>
-                            <th th:text="id">ID</th>
-                            <th th:text="#{user.firstName}">First Name</th>
-                            <th th:text="#{user.lastName}">Last Name</th>
-                            <th th:text="#{user.age}">Age</th>
-                            <th th:text="#{user.email}"> E-mail</th>
-                            <th th:text="#{user.role}"> Role</th>
-
-                        </tr>
-                        </thead>
-
-
-                        <tbody>
-
-                        <tr>
-                            <td><span th:text="${authuser.getId()}">ID </span></td>
-                            <td><span th:text="${authuser.getFirstName()}">Name </span></td>
-                            <td><span th:text="${authuser.getLastName()}"> LastName </span></td>
-                            <td><span th:text="${authuser.getAge()}"> Age </span></td>
-                            <td><span th:text="${authuser.getEmail()}"> Email </span></td>
-                            <td>
-                                <a th:each="role : ${authuser.getRoles()}"
-                                   th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
-                                > Role </a>
-                            </td>
-                        </tr>
-                        </tbody>
+                    <table id="tData" class="table table-striped ">
 
                     </table>
 
@@ -81,6 +45,7 @@
 </div>
 
 <div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
+<script src="/static/js/userPage.js"></script>
 </body>
 </html>
 
