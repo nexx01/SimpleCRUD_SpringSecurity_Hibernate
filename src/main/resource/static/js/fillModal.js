@@ -8,24 +8,24 @@ $(document).on('click', '#btnMainPage', function (event) {
     switch (valueButton) {
         case "delete":
             setPropertiesButtonDelete();
-            fillModalDataUser();
+            fillModalData();
             break;
         case "edit":
             setPropertiesButtonSave();
-            fillModalDataUser();
+            fillModalData();
             break;
         case "newUser":
             resetForm();
-            setPropertiesButtonSave();
+            fillModalData()
+            setPropertiesButtonNewUser();
             break;
         default:
             alert("Что то пошло не так!")
     }
-
-
-
     $('#modalUser').modal();
 })
+
+
 
 
 
@@ -34,7 +34,8 @@ let setPropertiesButtonSave =function () {
     $($('#btnModalUser')).prop({
         'textContent': 'Save changed',
         'class': 'btn btn-primary',
-        'type':"submit"
+        'type':"submit",
+        'value':"save"
     })
 }
 
@@ -43,9 +44,21 @@ let setPropertiesButtonDelete =function () {
     $($('#btnModalUser')).prop({
         'textContent': 'DELETE',
         'class': 'btn btn-danger',
-        'type':"submit"
+        'type':"submit",
+        'value':"delete"
     })
 }
+
+
+let setPropertiesButtonNewUser =function () {
+    $($('#btnModalUser')).prop({
+        'textContent': 'New User',
+        'class': 'btn btn-primary',
+        'type':"submit",
+        'value':"add"
+    })
+}
+
 
 
 let resetForm=function (){
@@ -56,7 +69,7 @@ let resetForm=function (){
 }
 
 
-let fillModalDataUser = function () {
+let fillModalData = function () {
     $('#selectInModal').selectpicker('destroy')
 
     let dropdown = document.getElementById('selectInModal');
@@ -66,19 +79,9 @@ let fillModalDataUser = function () {
 
 
     let requestUrlgetOne = requestUrl.concat("/").concat(idEditUser)
-    fetch(requestUrlRoles)
-        .then(
-            function (response) {
-                if (response.status !== 200) {
-                    console.warn('Looks like there was a problem. Status Code: ' +
-                        response.status);
-                    return;
-                }
-
+    sendRequest('GET', requestUrlRoles)
+        .then(data => {
                 let allRoles =[];
-
-                // Examine the text in the response
-                response.json().then(function (data) {
                     let option;
                     for (let i = 0; i < data.length; i++) {
                         option = document.createElement('option');
@@ -89,11 +92,13 @@ let fillModalDataUser = function () {
                         allRoles.push(data[i].roleName)
                         dropdown.add(option);
                     }
-                });
+           $('#selectInModal').selectpicker();
+          //  $('#selectInModal').selectpicker('refresh');
 
-                return allRoles;
-            }
-        ).then(function (allRoles) {
+            return allRoles;
+                })
+       .then(function (allRoles) {
+           if(idEditUser){
         $(document).ready(function () {
             sendRequest('GET', requestUrlgetOne)
                 .then(data => {
@@ -103,7 +108,7 @@ let fillModalDataUser = function () {
                     $('#lastNameEdit').val(data.lastName);
                     $('#ageEdit').val(data.age);
                     $('#emailEdit').val(data.email);
-                    $('#selectInModal').selectpicker();
+
                     let option;
 
 
@@ -114,7 +119,18 @@ let fillModalDataUser = function () {
                 })
                 })
         });
-    })
-}
+    }
+       }
 
+       )}
+
+
+
+
+// function (response) {
+// if (response.status !== 200) {
+//     console.warn('Looks like there was a problem. Status Code: ' +
+//         response.status);
+//     return;
+// }
 

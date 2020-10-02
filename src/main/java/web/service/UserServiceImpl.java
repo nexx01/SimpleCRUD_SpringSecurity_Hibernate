@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserRepository;
 import web.model.User;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -25,8 +27,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(User user) {
-        userRepository.delete(user);
+    public void delete(long id) {
+        Optional<User> user=userRepository.findById(id);
+        user.ifPresent(value -> userRepository.delete(value));
+
     }
 
 

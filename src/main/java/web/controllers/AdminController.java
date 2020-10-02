@@ -44,12 +44,6 @@ public class AdminController {
     }
 
 
-     @PostMapping("/delete")
-    public String deleteUser(@ModelAttribute User user) {
-
-        userService.delete(user);
-        return "redirect:/admin";
-    }
 
     // Получение и проверка данных введеных в форму
     @GetMapping("/addUser")

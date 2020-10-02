@@ -98,8 +98,8 @@ public class AdminRestController {
 
     //using SpringData
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> delete(@PathVariable User user) {
-        userService.delete(user);
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
