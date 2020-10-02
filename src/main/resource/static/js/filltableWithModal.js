@@ -3,6 +3,7 @@ const requestUrlRoles = 'http://localhost:8088/admin/roles'
 let allUsers;
 
 
+
 function sendRequest(method, url, body = null) {
     return fetch(url,).then(response => {
         return response.json()
@@ -28,7 +29,7 @@ $(document).ready(function () {
         .then(data => {
             console.log(data);
             data.forEach(function (user) {
-                $("#tData").append("<tr>" +
+                $("#tData").append('<tr id="' + user.id +'">' +
                     "<td>" + user.id + "</td>" +
                     "<td>" + getValueWithoutNull(user.firstName) + "</td>" +
                     "<td>" + getValueWithoutNull(user.lastName) + "</td>" +
@@ -36,8 +37,8 @@ $(document).ready(function () {
                     "<td>" + user.email + "</td>" +
                     "<td type='password'>" + user.password + "</td>" +
                     "<td>" + getRolesUserString(user) + "</td>" +
-                    '<td><button type="button" class="btn btn-info" id="btnEditUser" value="edit" data-id="' + user.id + '">Edit</button></td>' +
-                    '<td><div th:unless="${#authentication.getName() == ' + user.email + '"><button type="button" class="btn btn-danger " data-toggle="modal" data-target="#deleteModal" value="delete" data-id="' + user.id + '">Delete</button></div></td>'
+                    '<td><button type="button" class="btn btn-info" id="btnMainPage" value="edit" data-id="' + user.id + '">Edit</button></td>' +
+                    '<td><div th:unless="${#authentication.getName() == ' + user.email + '"><button type="button"  class="btn btn-danger "  id="btnMainPage" value="delete" data-id="' + user.id + '">Delete</button></div></td>'
                     + "</tr>");
             });
         })

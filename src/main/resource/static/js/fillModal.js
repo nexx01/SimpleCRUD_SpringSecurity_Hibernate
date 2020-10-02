@@ -1,41 +1,92 @@
-$(document).on('click', '#btnEditUser', function (event) {
-    console.log($(this)); // это и есть наш элемент с классом butt
+let idEditUser;
 
+$(document).on('click', '#btnMainPage', function (event) {
+    let valueButton=$(this).attr('value')
+    idEditUser=$(this).attr('data-id')
+
+
+    switch (valueButton) {
+        case "delete":
+            setPropertiesButtonDelete();
+            fillModalDataUser();
+            break;
+        case "edit":
+            setPropertiesButtonSave();
+            fillModalDataUser();
+            break;
+        case "newUser":
+            resetForm();
+            setPropertiesButtonSave();
+            break;
+        default:
+            alert("Что то пошло не так!")
+    }
+
+
+
+    $('#modalUser').modal();
+})
+
+
+
+
+let setPropertiesButtonSave =function () {
+    $($('#btnModalUser')).prop({
+        'textContent': 'Save changed',
+        'class': 'btn btn-primary',
+        'type':"submit"
+    })
+}
+
+
+let setPropertiesButtonDelete =function () {
+    $($('#btnModalUser')).prop({
+        'textContent': 'DELETE',
+        'class': 'btn btn-danger',
+        'type':"submit"
+    })
+}
+
+
+let resetForm=function (){
+    $( '#formEditUser' ).each(function(){
+        this.reset();
+    });
+
+}
+
+
+let fillModalDataUser = function () {
+    $('#selectInModal').selectpicker('destroy')
 
     let dropdown = document.getElementById('selectInModal');
     dropdown.length = 0;
     //
-    let defaultOption = document.createElement('option');
-    // defaultOption.text = 'Choose role/roles';
-    //
-    // dropdown.add(defaultOption);
-    // dropdown.selectedIndex = 0;
-    let requestUrlgetOne = requestUrl.concat("/").concat($(this).attr('data-id'))
+    //  let defaultOption = document.createElement('option');
 
 
+    let requestUrlgetOne = requestUrl.concat("/").concat(idEditUser)
     fetch(requestUrlRoles)
         .then(
-
             function (response) {
-
                 if (response.status !== 200) {
                     console.warn('Looks like there was a problem. Status Code: ' +
                         response.status);
                     return;
                 }
+
                 let allRoles =[];
 
                 // Examine the text in the response
                 response.json().then(function (data) {
                     let option;
-
-
                     for (let i = 0; i < data.length; i++) {
                         option = document.createElement('option');
                         option.text = data[i].roleName;
-                        option.value = data[i].roleName;
+                        option.id="idRole"+data[i].roleName;
+                        option.selected=false
+                        option.value = data[i].id;
                         allRoles.push(data[i].roleName)
-
                         dropdown.add(option);
                     }
                 });
@@ -46,57 +97,24 @@ $(document).on('click', '#btnEditUser', function (event) {
         $(document).ready(function () {
             sendRequest('GET', requestUrlgetOne)
                 .then(data => {
-                    console.log(data);
+                    let roles=[]
                     $('#idEdit').val(data.id);
                     $('#firstNameEdit').val(data.firstName);
                     $('#lastNameEdit').val(data.lastName);
                     $('#ageEdit').val(data.age);
                     $('#emailEdit').val(data.email);
                     $('#selectInModal').selectpicker();
+                    let option;
 
 
-                   $.each(allRoles, function (indexRole, nameRole){
-                       $.each(data.roles, function (indexRoleUser, roleUser){
-                           console.log("nameRole "+nameRole+ " roleUser "+ roleUser.roleName)
-                         if(nameRole===roleUser.roleName){
-
-
-                         }
-                       })
-                   })
-
-
-                    // response.json().then(function (data) {
-                    //     console.log("hbjkh" + data)
-                    // })
-
-                    // sendRequest('GET',requestUrlRoles)
-                    // .then(roles=>{
-                    //     console.log(roles)
-                    //     roles.forEach(function (role){
-                    //             $("#selectInModal").append(
-                    //                 $('<option value="1">New option</option>')
-                    //             );
-                    //         });
-                    //
-                    //     });
-                });
-
-            $('#edit-modal').modal();
-        })
+                    $.each(data.roles ,function (index,roleUser){
+                        let id="#"+"idRole"+roleUser.roleName
+                        $(id).prop('selected', true);
+                        $('#selectInModal').selectpicker('refresh');
+                })
+                })
+        });
     })
-
-
-})
-
-
-// $('[name = "editModal"]').modal('show');
-//
-
-
-//  .catch(err => console.log(err))
-
-
-
+}
 
 

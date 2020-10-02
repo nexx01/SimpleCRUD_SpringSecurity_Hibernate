@@ -90,7 +90,7 @@ public class AdminRestController {
 
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody User user) {
+    public ResponseEntity<?> update( @RequestBody User user)  {
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
 

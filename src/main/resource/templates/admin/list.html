@@ -30,7 +30,7 @@
 </nav>
 
 
-<div class="container-fluid ">
+<div class="container-fluid">
     <div class="row content">
         <div class="col-lg-2 bg-light field ">
 
@@ -58,7 +58,7 @@
                     <a class="nav-link active" href="/admin">Users table</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/addUser">New user</a>
+                    <a class="nav-link"  id="btnMainPage" th:value="newUser">New user</a>
                 </li>
                 <button type="button" class="btn btn-outline-primary" onclick="exampleOnclick(this)">Taco Tommy</button><br />
                 <button type="button" class="btn btn-outline-primary" onclick="exampleOnclick(this)">Bobby Burrito</button>
@@ -72,8 +72,8 @@
 
             <!--Таблица Юзеров-->
             <div class="container-fluid border border-grey bg-white">
-                <table  class="table table-light">
-                    <table id="tData" class="table table-striped ">
+                <table  class="table table-light" >
+                    <table id="tData" class="table table-striped" >
                         <thead>
 
                         <th th:text="id">ID</th>
@@ -91,41 +91,11 @@
                         <tbody>
 
 
-<!--                        <tr th:each="user : ${users}" th:object="${user}">-->
-<!--                            <td>-->
-<!--                                <span th:text="${user.getId()}">ID </span></td>-->
-<!--                            <td><span th:text="${user.getFirstName()}">Name </span></td>-->
-<!--                            <td><span th:text="${user.getLastName()}"> LastName </span></td>-->
-<!--                            <td><span th:text="${user.getAge()}"> Age </span></td>-->
-<!--                            <td><span th:text="${user.getEmail()}"> Email </span></td>-->
-<!--                            <td>-->
-<!--                                <a th:each="role : ${user.getRoles()}"-->
-<!--                                   th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"-->
-<!--                                > Role </a>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                &lt;!&ndash;Кнопка редактирования&ndash;&gt;-->
-<!--                                <a th:href="@{http://localhost:8088/admin/users/7}" class="btn btn-info" >Edit</a>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                &lt;!&ndash;Кнопка удаления&ndash;&gt;-->
-<!--                                <a class="btn btn-danger" href="delete.html" data-toggle="modal" data-target="#delete-modal"-->
-<!--                                   th:data-id="${user.id}"-->
-<!--                                   th:data-whatever="${user.firstName}"-->
-<!--                                   th:data-lastname="${user.lastName}"-->
-<!--                                   th:data-age="${user.age}"-->
-<!--                                   th:data-email="${user.email}"-->
-<!--                                   role="button">Delete</a>-->
-<!--                            </td>-->
-<!--                        </tr>-->
 
 
-
-
-<!--                        Окно редактирования-->
+             <!--                        Modal window-->
                         <div th:insert="~{fragment/editModal.html :: editModalForm}"></div>
-                        <!--                        Окно удаления-->
-<!--                        <div th:insert="~{fragment/deleteModal.html :: deleteModalForm}"></div>-->
+
 
                         </tbody>
 
@@ -154,6 +124,7 @@
 
 <script     src="/static/js/filltableWithModal.js"></script>
 <script     src="/static/js/fillModal.js"></script>
+<script     src="/static/js/submitModalUser.js"></script>
 <script>
     function exampleOnclick(btn) {
         var name = btn.innerHTML;
