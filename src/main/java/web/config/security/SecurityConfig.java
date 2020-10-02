@@ -34,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()//для тестов в Postman
                 .authorizeRequests()
-                .antMatchers("/","/static ","/admin").permitAll() // доступность всем
-                .antMatchers("/admin").access("hasAnyRole('ROLE_ADMIN')")// разрешаем входить на /admin пользователям с ролью ROLE_ADMIN
+                .antMatchers("/").permitAll() // доступность всем
+                .antMatchers("/admin","/api").access("hasAnyRole('ROLE_ADMIN')")// разрешаем входить на /admin пользователям с ролью ROLE_ADMIN
                 .antMatchers("/user").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')") // разрешаем входить на /user пользователям с ролью User
                 .and() .formLogin()
                 .loginPage("/login")// Spring  подставит нашу логин форму

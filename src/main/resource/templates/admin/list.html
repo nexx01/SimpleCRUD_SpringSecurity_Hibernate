@@ -17,9 +17,6 @@
 <div th:insert="~{fragment/fragmentsGeneralView.html :: navbar}"></div>
 
 
-
-
-
         <!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
         Это гарантирует, что для выхода из системы требуется токен CSRF и что злоумышленник
         не сможет принудительно выйти из системы ваших пользователей.-->
@@ -60,8 +57,6 @@
                 <li class="nav-item">
                     <a class="nav-link"  id="btnMainPage" th:value="newUser">New user</a>
                 </li>
-                <button type="button" class="btn btn-outline-primary" onclick="exampleOnclick(this)">Taco Tommy</button><br />
-                <button type="button" class="btn btn-outline-primary" onclick="exampleOnclick(this)">Bobby Burrito</button>
             </ul>
 
 
@@ -82,6 +77,7 @@
                         <th th:text="#{user.age}">Age</th>
                         <th th:text="#{user.email}"> E-mail</th>
                         <th th:text="#{user.password}"> Password</th>
+                        <th th:text="#{user.role}"> Roles</th>
                         <th th:text="#{user.edit}">Edit</th>
                         <th th:text="#{user.delete}">Delete</th>
 
@@ -89,16 +85,7 @@
 
                         </thead>
                         <tbody>
-
-
-
-
-             <!--                        Modal window-->
-                        <div th:insert="~{fragment/editModal.html :: editModalForm}"></div>
-
-
                         </tbody>
-
                     </table>
 
 
@@ -106,7 +93,7 @@
             </div>
         </div>
 
-
+        <div th:insert="~{fragment/editModal.html :: editModalForm}"></div>
 
 
     </div><!--col-9-->
@@ -114,72 +101,14 @@
 </div><!--container-->
 
 
-
 <div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
 
-
-<!--скрипты для заполнения модального окна-->
-
-<!--<script src="/static/js/fillModalWindow.js"></script>-->
-
-<script     src="/static/js/filltableWithModal.js"></script>
+<script     src="/static/js/util/sendFetchRequest.js"></script>
+<script     src="/static/js/main.js"></script>
 <script     src="/static/js/fillModal.js"></script>
 <script     src="/static/js/submitModalUser.js"></script>
-<script>
-    function exampleOnclick(btn) {
-        var name = btn.innerHTML;
 
-        var exampleModal = getExampleModal();
 
-        // Init the modal if it hasn't been already.
-        if (!exampleModal) { exampleModal = initExampleModal(); }
-
-        var html =
-            '<div class="modal-header">' +
-            '<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>' +
-            '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
-            '<span aria-hidden="true">&times;</span>' +
-            '</button>' +
-            '</div>' +
-            '<div class="modal-body">' +
-            name +
-            '</div>' +
-            '<div class="modal-footer">' +
-            '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>' +
-            '<button type="button" class="btn btn-primary">Save changes</button>' +
-            '</div>';
-
-        setExampleModalContent(html);
-
-        // Show the modal.
-        jQuery(exampleModal).modal('show');
-
-    }
-
-    function getExampleModal() {
-        return document.getElementById('exampleModal');
-    }
-
-    function setExampleModalContent(html) {
-        getExampleModal().querySelector('.modal-content').innerHTML = html;
-    }
-
-    function initExampleModal() {
-        var modal = document.createElement('div');
-        modal.classList.add('modal', 'fade');
-        modal.setAttribute('id', 'exampleModal');
-        modal.setAttribute('tabindex', '-1');
-        modal.setAttribute('role', 'dialog');
-        modal.setAttribute('aria-labelledby', 'exampleModalLabel');
-        modal.setAttribute('aria-hidden', 'true');
-        modal.innerHTML =
-            '<div class="modal-dialog" role="document">' +
-            '<div class="modal-content"></div>' +
-            '</div>';
-        document.body.appendChild(modal);
-        return modal;
-    }
-</script>
 </body>
 </html>
 

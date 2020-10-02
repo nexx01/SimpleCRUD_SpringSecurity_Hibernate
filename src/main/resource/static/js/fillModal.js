@@ -78,8 +78,15 @@ let fillModalData = function () {
     //  let defaultOption = document.createElement('option');
 
 
-    let requestUrlgetOne = requestUrl.concat("/").concat(idEditUser)
-    sendRequest('GET', requestUrlRoles)
+  //  let requestUrlgetOne = requestUrlUsers.concat("/").concat(idEditUser)
+    let requestOptions = {
+        method: 'GET',
+        body: null,
+        redirect: 'follow'
+    };
+
+
+    sendFetchRequest( requestUrlRoles, requestOptions)
         .then(data => {
                 let allRoles =[];
                     let option;
@@ -100,7 +107,15 @@ let fillModalData = function () {
        .then(function (allRoles) {
            if(idEditUser){
         $(document).ready(function () {
-            sendRequest('GET', requestUrlgetOne)
+
+            let requestOptions = {
+                method: 'GET',
+                body: null,
+                redirect: 'follow'
+            };
+
+
+            sendFetchRequest( requestUrlUsers.concat("/").concat(idEditUser), requestOptions)
                 .then(data => {
                     let roles=[]
                     $('#idEdit').val(data.id);
@@ -124,13 +139,4 @@ let fillModalData = function () {
 
        )}
 
-
-
-
-// function (response) {
-// if (response.status !== 200) {
-//     console.warn('Looks like there was a problem. Status Code: ' +
-//         response.status);
-//     return;
-// }
 

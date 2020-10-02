@@ -1,3 +1,6 @@
+
+
+
 $('#formEditUser').submit(function () {
     let valueButton = $('#btnModalUser').val()
     let idUser = $('#idEdit').val();
@@ -23,7 +26,9 @@ let deleteUser = function (idUser) {
         method: 'DELETE',
         body: null,
     };
-    sendFetchRequest(requestUrl.concat("/").concat(idUser), requestOptions);
+    sendFetchRequest(requestUrlUsers.concat("/").concat(idUser), requestOptions)
+        .then(function (data){
+        console.log("successful delete")})
 }
 
 
@@ -31,7 +36,7 @@ let deleteUser = function (idUser) {
 let updateUser = function (user) {
 
     let userJSON = JSON.stringify(user)
-    let requestUrlUpdater = requestUrl.concat("/").concat(user.id)
+
     console.log("updater userJSON" + userJSON)
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -43,16 +48,18 @@ let updateUser = function (user) {
         body: userJSON,
         redirect: 'follow'
     };
-    sendFetchRequest(requestUrlUpdater, requestOptions);
+
+    sendFetchRequest(requestUrlUsers.concat("/").concat(user.id), requestOptions)
+        .then(function (data){
+            console.log("successful updater")})
     refreshDataTable(userJSON)
 }
 
 
 
 let addUser = function (user) {
-    alert(user.id)
     let userJSON = JSON.stringify(user)
-    //let requestUrl =requestUrl
+
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Cookie", "__cfduid=d28a1e326be283e5126a739d27f3f1ccf1601280227");
@@ -64,21 +71,13 @@ let addUser = function (user) {
         redirect: 'follow'
     };
 
-    sendFetchRequest(requestUrl, requestOptions);
+    sendFetchRequest(requestUrlUsers, requestOptions).then(function (data){
+        console.log("successful add")})
 
     refreshDataTable(userJSON)
 }
 
 
-
-let sendFetchRequest = function (requestUrl, requestOptions) {
-    fetch(requestUrl, requestOptions)
-        .then(response => {
-            return response.json()
-        })
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-}
 
 
 
@@ -125,3 +124,4 @@ let getUser = function (idUser) {
 
     return user;
 }
+
