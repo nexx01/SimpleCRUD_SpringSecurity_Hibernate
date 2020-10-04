@@ -1,5 +1,5 @@
 
-const requestUrl = 'http://localhost:8088/api/v1'
+const requestUrl = 'http://localhost:8085/api'
 const requestUrlUsers = requestUrl.concat("/users")
 const requestUrlRoles = requestUrl.concat("/roles")
 
@@ -12,36 +12,39 @@ $(document).ready(function () {
         redirect: 'follow'
     };
 
+    fillupNavBar(sendFetchRequest(requestUrl.concat("/userApi"),requestOptions));
     fillUsersTable(sendFetchRequest(requestUrlUsers,requestOptions));
     leftNavBarAdmin();
 
 });
 
-$(document).on('click', '#btnAdminPage', function (event) {
-            let requestOptions = {
-                method: 'GET',
-                body: null,
-                redirect: 'follow'
-            };
-    $("#tData tr").remove();
-            fillUsersTable(sendFetchRequest(requestUrlUsers,requestOptions));
-})
+// $(document).on('click', '#btnAdminPage', function (event) {
+//             let requestOptions = {
+//                 method: 'GET',
+//                 body: null,
+//                 redirect: 'follow'
+//             };
+//     document.getElementById('#contentPage').onclick = function() {
+//         this.innerHTML = '';
+//     }
+//
+//     fillPersonalData(sendFetchRequest(requestUrl.concat("/userApi"),requestOptions));
+//     $("#tData tr").remove();
+//     fillUsersTable(sendFetchRequest(requestUrlUsers,requestOptions));
+// })
+//
+// $(document).on('click', '#btnUserPage', function (event) {
+//     let requestOptions = {
+//         method: 'GET',
+//         body: null,
+//         redirect: 'follow'
+//     };
+//
+//     $('#adminFragment').remove();
+//     fillPersonalData(sendFetchRequest(requestUrl.concat("/userApi"),requestOptions))
+// })
 
-$(document).on('click', '#btnUserPage', function (event) {
-    let requestOptions = {
-        method: 'GET',
-        body: null,
-        redirect: 'follow'
-    };
 
-
-
-
-    $("#tData tr").remove();
-
-    fillPersonalData(sendFetchRequest(requestUrl.concat("/userApi"),requestOptions));
-
-})
 
 
 
@@ -65,7 +68,6 @@ let fillUsersTable=function(listAllUsers) {
 
             data.forEach(function (user) {
             $("#tData").append(
-
               '  <tbody>'+
                 '<tr id="' + user.id + '">' +
                 "<td>" + user.id + "</td>" +
@@ -102,22 +104,5 @@ let leftNavBarAdmin = function () {
     )
 }
 
-let getValueWithoutNull = function (val) {
-    if (val) {
-        return val
-    } else {
-        return ""
-    }
-}
 
-
-
-let getRolesUserString = function (user) {
-    let rolesUser = '';
-    user.roles.forEach(function (role) {
-        let roleName = role.roleName
-        rolesUser = rolesUser + roleName.substring(5, roleName.length) + ', '
-    });
-    return rolesUser.substring(0, rolesUser.length - 2)
-}
 

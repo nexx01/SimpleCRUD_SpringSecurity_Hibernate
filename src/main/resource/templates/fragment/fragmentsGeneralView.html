@@ -5,24 +5,14 @@
 <!--Фрагмент навигационной панели-->
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand-sm  navbar-dark bg-dark text-white ">
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ">
-                <li class="nav-item mt-1 ">
-                    <a class="font-weight-bold " th:text="${authuser.getEmail()}" > Email </a>
-                </li>
-                <li class="nav-item mt-1">
-                    <p class="ml-1" th:text="#{withRoles}">withRoles</p>
-                </li>
-
-                <li class="nav-item mt-1 ml-1">
-                    <td>
-                        <a th:each="role : ${authuser.getRoles()}"
-                           th:text=" ${#strings.substringAfter(role.getRoleName(),'ROLE_')+'&#160;'}"
-                        > Role </a>
-                    </td>
-                </li>
-            </ul>
+        <div class="collapse navbar-collapse "  id=upNavBar>
         </div>
+        <!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
+Это гарантирует, что для выхода из системы требуется токен CSRF и что злоумышленник
+не сможет принудительно выйти из системы ваших пользователей.-->
+        <form class="form form-link text-white-50" th:action="@{/logout}" method="post">
+            <button class="btn btn btn-link text-white-50" type="submit" value="Log out">logout</button>
+        </form>
     </nav>
 </div>
 

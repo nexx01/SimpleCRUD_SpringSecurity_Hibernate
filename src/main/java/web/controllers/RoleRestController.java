@@ -13,7 +13,7 @@ import web.service.RoleService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/")
 public class RoleRestController {
 
     private final RoleService roleService;

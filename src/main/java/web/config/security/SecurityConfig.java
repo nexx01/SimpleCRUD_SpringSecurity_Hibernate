@@ -32,13 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()//для тестов в Postman
+              //  .csrf().disable()//для тестов
                 .authorizeRequests()
                 .antMatchers("/").permitAll() // доступность всем
-                .antMatchers("/admin","/api","/userApi").access("hasAnyRole('ROLE_ADMIN')")// разрешаем входить на /admin пользователям с ролью ROLE_ADMIN
+                .antMatchers("/admin","/api","/userApi","/user").access("hasAnyRole('ROLE_ADMIN')")// разрешаем входить на /admin пользователям с ролью ROLE_ADMIN
                 .antMatchers("/user").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')") // разрешаем входить на /user пользователям с ролью User
                 .and() .formLogin()
-                .loginPage("/login")// Spring  подставит нашу логин форму
+                .loginPage("/login")// Spring  подставит  логин форму
                 .successHandler(successUserHandler) // подключаем наш SuccessHandler для перенеправления по ролям
                 .and()
                 .logout()

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:insert="~{fragment/fragmentsGeneralView.html:: styleheader}"></div>
 <head>
 
@@ -17,17 +17,31 @@
 
 <div class="container-fluid ">
     <div class="row content">
-        <div class="col-lg-2 bg-light field " id="leftNavBar">
+        <div class="col-lg-2 bg-light field ">
 
+            <!--Кнопки перехода на персональную страницу и админскую-->
+            <div class="row">
+                <div class="nav-col  btn-group-vertical btn-group-toggle btn-block">
+
+
+                    <button type="button" class="nav-item btn btn-white" id="btnAdminPage" sec:authorize="hasRole('ADMIN')" >
+                        <a class="nav-link  nav-fill" href="/admin">Admin</a>
+                    </button>
+
+                    <button type="button" class="nav-item btn active text-white ">
+                        <a class="nav-link  nav-fill text-white " id="btnUserPage" href="/user">User</a>
+                    </button>
+                </div>
             </div>
         </div>
+
         <div class="col-sm-10 field ">
             <div class="row mt-2 ml-1">
                 <h3>User information-page</h3>
             </div>
 
 
-            <div class="container-fluid border-top border-left border-right border-grey width: 100%">
+            <div class="container-fluid border-top border-left border-right border-grey width: 100% mt=4">
                 <label>About user</label>
             </div>
 
@@ -45,7 +59,12 @@
 </div>
 
 <div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
+<script     src="/static/js/util/getUserRoles.js"></script>
+<script     src="/static/js/util/fillUserPersonalData.js"></script>
+<script     src="/static/js/util/sendFetchRequest.js"></script>
 <script src="/static/js/userPage.js"></script>
+
+<script     src="/static/js/navBar.js"></script>
 </body>
 </html>
 

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
 <head>
 
     <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
+
 
 
 
@@ -13,46 +14,49 @@
 </head>
 
 <body>
+<nav>
+<div>
 <!--Навигационная верхняя панель-->
 <div th:insert="~{fragment/fragmentsGeneralView.html :: navbar}"></div>
 
 
-        <!--Добавление CSRF обновит LogoutFilter, чтобы использовать только HTTP POST.
-        Это гарантирует, что для выхода из системы требуется токен CSRF и что злоумышленник
-        не сможет принудительно выйти из системы ваших пользователей.-->
-        <form class="form form-link text-white-50" th:action="@{/logout}" method="post">
-            <button class="btn btn-link text-white-50" type="submit" value="Log out">logout</button>
-        </form>
-    </div>
+</div>
 </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid" id="mainContainer">
     <div class="row content">
         <div class="col-lg-2 bg-light field ">
 
             <!--Кнопки перехода на персональную страницу и админскую-->
             <div class="row">
                 <div class="nav-col  btn-group-vertical btn-group-toggle btn-block">
+
                     <button type="button" class="nav-item btn btn-white-50 active" id="btnAdminPage">
                         <a class="nav-link active nav-fill" href="/admin">Admin</a>
                     </button>
+
                     <button type="button" class="nav-item btn btn-white-50 ">
-                        <a class="nav-link  nav-fill " id="btnUserPage">User</a>
+                        <a class="nav-link  nav-fill " id="btnUserPage" href="/user">User</a>
                     </button>
                 </div>
             </div>
         </div>
 
 
-        <div class="col-sm-10 field ">
-            <div class="row mt-2 ml-1">
-                <h3>Admin panel </h3>
+
+
+        <div class="col-sm-10 field " id="contentPage">
+
+            <div class="row mt-2 ml-1" >
+                <h3  id="labelPanel">Admin panel </h3>
             </div>
 
-            <ul class="nav nav-tabs">
+
+            <!--            --------------------------------------------------->
+            <ul class="nav nav-tabs"  id="tableNavBar">
                 <li class="nav-item">
-                    <a class="nav-link active">Users table</a>
+                    <a class="nav-link active" id="labelTable">Users table</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"  id="btnMainPage" th:value="newUser">New user</a>
@@ -60,26 +64,24 @@
             </ul>
 
 
+            <!--            --------------------------------------------------->
             <div class="container-fluid border-top border-left border-right border-grey width: 100%">
                 <label class="mt-1">Users table</label>
             </div>
-
-
             <!--Таблица Юзеров-->
             <div class="container-fluid border border-grey bg-white">
                 <table  class="table table-light" >
                     <table id="tData" class="table table-striped" >
-
-
                     </table>
                 </table>
             </div>
         </div>
 
-        <div th:insert="~{fragment/editModal.html :: editModalForm}"></div>
+
+        <div th:insert="~{fragment/Modal.html :: editModalForm}"></div>
 
 
-    </div><!--col-9-->
+
 </div><!--row-->
 </div><!--container-->
 
@@ -87,12 +89,14 @@
 <div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
 
 <script     src="/static/js/util/sendFetchRequest.js"></script>
-<script     src="/static/js/main.js"></script>
+    <script     src="/static/js/util/fillUserPersonalData.js"></script>
+<script     src="/static/js/util/getUserRoles.js"></script>
+<script     src="/static/js/admin.js"></script>
 <script     src="/static/js/submitModalUser.js"></script>
 <script     src="/static/js/fillModal.js"></script>
-<script     src="/static/js/userPage.js"></script>
+<script     src="/static/js/navBar.js"></script>
 
-
+</div>
 </body>
 </html>
 

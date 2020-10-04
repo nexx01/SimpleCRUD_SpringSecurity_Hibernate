@@ -1,4 +1,3 @@
-
 $('#formEditUser').submit(function () {
     let valueButton = $('#btnModalUser').val()
     let idUser = $('#idEdit').val();
@@ -19,21 +18,16 @@ $('#formEditUser').submit(function () {
 });
 
 
-
-
-
-
-
 let deleteUser = function (idUser) {
     let requestOptions = {
         method: 'DELETE',
         body: null,
     };
     sendFetchRequest(requestUrlUsers.concat("/").concat(idUser), requestOptions)
-        .then(function (data){
-        console.log("successful delete")})
+        .then(function (data) {
+            console.log("successful delete")
+        })
 }
-
 
 
 let updateUser = function (user) {
@@ -53,11 +47,11 @@ let updateUser = function (user) {
     };
 
     sendFetchRequest(requestUrlUsers.concat("/").concat(user.id), requestOptions)
-        .then(function (data){
-            console.log("successful updater")})
+        .then(function (data) {
+            console.log("successful updater")
+        })
     refreshDataTable(userJSON)
 }
-
 
 
 let addUser = function (user) {
@@ -74,14 +68,12 @@ let addUser = function (user) {
         redirect: 'follow'
     };
 
-    sendFetchRequest(requestUrlUsers, requestOptions).then(function (data){
-        console.log("successful add")})
+    sendFetchRequest(requestUrlUsers, requestOptions).then(function (data) {
+        console.log("successful add")
+    })
 
     refreshDataTable(userJSON)
 }
-
-
-
 
 
 let refreshDataTable = function (user) {
@@ -100,7 +92,6 @@ let refreshDataTable = function (user) {
 
     $('[name = "#modalUser"]').modal('hide');
 }
-
 
 
 let getUser = function (idUser) {

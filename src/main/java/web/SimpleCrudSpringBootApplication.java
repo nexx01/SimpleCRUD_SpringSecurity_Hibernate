@@ -10,5 +10,4 @@ public class SimpleCrudSpringBootApplication {
     public static void main(String[] args) {
         SpringApplication.run(SimpleCrudSpringBootApplication.class, args);
     }
-
 }
