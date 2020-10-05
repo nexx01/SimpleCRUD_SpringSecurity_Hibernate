@@ -22,6 +22,7 @@ $('#formEditUser').submit(function () {
 let deleteUser = function (idUser) {
     let requestOptions = {
         method: 'DELETE',
+        headers: myHeaders,
         body: null,
     };
     sendFetchRequest(requestUrlUsers.concat("/").concat(idUser), requestOptions)
@@ -34,11 +35,6 @@ let deleteUser = function (idUser) {
 let updateUser = function (user) {
 
     let userJSON = JSON.stringify(user)
-
-    console.log("updater userJSON" + userJSON)
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Cookie", "__cfduid=d28a1e326be283e5126a739d27f3f1ccf1601280227");
 
     let requestOptions = {
         method: 'PUT',
@@ -58,16 +54,13 @@ let updateUser = function (user) {
 let addUser = function (user) {
     let userJSON = JSON.stringify(user)
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Cookie", "__cfduid=d28a1e326be283e5126a739d27f3f1ccf1601280227");
-
     let requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: userJSON,
         redirect: 'follow'
     };
+
 
     sendFetchRequest(requestUrlUsers, requestOptions).then(function (data) {
         console.log("successful add")

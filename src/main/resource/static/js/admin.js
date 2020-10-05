@@ -3,6 +3,7 @@ const requestUrlUserApi = 'http://localhost:8085/userApi'
 const requestUrlUsers = requestUrl.concat("/users")
 const requestUrlRoles = requestUrl.concat("/roles")
 
+let myHeaders= new Headers();;
 
 $(document).ready(function () {
     let requestOptions = {
@@ -13,6 +14,15 @@ $(document).ready(function () {
 
     fillupNavBar(sendFetchRequest(requestUrlUserApi, requestOptions));
     fillUsersTable(sendFetchRequest(requestUrlUsers, requestOptions));
+
+    //Получаем CSRF токен
+   let token=$('#token').attr('content')
+
+    //Добавляем токен в заголовки
+    myHeaders.append('Content-Type', "application/json");
+    myHeaders.append('X-CSRF-TOKEN', token);
+
+
 });
 
 

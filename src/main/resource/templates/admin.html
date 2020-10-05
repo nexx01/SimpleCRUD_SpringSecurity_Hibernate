@@ -3,6 +3,11 @@
 <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
 <head>
 
+    <meta th:name="_csrf" th:content="${_csrf.token}" id="token"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}" id="tokenHeader"/>
+
+
+
     <div th:insert="~{fragment/fragmentsGeneralView.html :: styleheader}"></div>
 
 
