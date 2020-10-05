@@ -24,7 +24,8 @@
                 <div class="nav-col  btn-group-vertical btn-group-toggle btn-block">
 
 
-                    <button type="button" class="nav-item btn btn-white" id="btnAdminPage" sec:authorize="hasRole('ADMIN')" >
+                    <button type="button" class="nav-item btn btn-white" id="btnAdminPage"
+                            sec:authorize="hasRole('ADMIN')">
                         <a class="nav-link  nav-fill" href="/admin">Admin</a>
                     </button>
 
@@ -59,12 +60,12 @@
 </div>
 
 <div th:insert="~{fragment/fragmentsGeneralView.html :: stylefooter}"></div>
-<script     src="/static/js/util/getUserRoles.js"></script>
-<script     src="/static/js/util/fillUserPersonalData.js"></script>
-<script     src="/static/js/util/sendFetchRequest.js"></script>
+<script src="/static/js/util/getUserRoles.js"></script>
+<script src="/static/js/util/fillUserPersonalData.js"></script>
+<script src="/static/js/util/sendFetchRequest.js"></script>
 <script src="/static/js/userPage.js"></script>
 
-<script     src="/static/js/navBar.js"></script>
+<script src="/static/js/util/navBar.js"></script>
 </body>
 </html>
 

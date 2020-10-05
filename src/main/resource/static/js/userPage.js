@@ -1,6 +1,5 @@
-
 $(document).ready(function () {
-    const requestUrl = 'http://localhost:8085/api'
+    const requestUrlUserApi = 'http://localhost:8085/userApi'
 
     let requestOptions = {
         method: 'GET',
@@ -8,7 +7,7 @@ $(document).ready(function () {
         redirect: 'follow'
     };
 
-    let userPromise=sendFetchRequest(requestUrl.concat("/userApi"),requestOptions);
+    let userPromise = sendFetchRequest(requestUrlUserApi, requestOptions);
     fillupNavBar(userPromise);
     fillPersonalData(userPromise)
 })

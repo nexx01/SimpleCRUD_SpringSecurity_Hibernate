@@ -2,6 +2,7 @@ $('#formEditUser').submit(function () {
     let valueButton = $('#btnModalUser').val()
     let idUser = $('#idEdit').val();
 
+
     switch (valueButton) {
         case "delete":
             deleteUser(idUser)
